@@ -39,6 +39,15 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(p['historical_backfill'], False)
         self.assertTrue(p['preserve_local_workflows'])
 
+    def test_unverified_pages_promotion_fails_before_any_side_effect(self):
+        path = ROOT / '.github/workflows/site-promote.yml'
+        d = yaml.load(path.read_text(), Loader=yaml.BaseLoader)
+        job = d['jobs']['promote']
+        self.assertEqual(job['permissions']['contents'], 'read')
+        self.assertIn('exit 1', job['steps'][0]['run'])
+        self.assertNotIn('git push', path.read_text())
+        self.assertNotIn('deploy-pages', path.read_text())
+
 
 if __name__ == '__main__':
     unittest.main()

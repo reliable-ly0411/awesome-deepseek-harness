@@ -25,10 +25,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    environment:
-      name: github-pages
     permissions:
-      contents: write
+      contents: read
       actions: read
     env:
       GH_TOKEN: ${{ github.token }}
@@ -36,10 +34,14 @@ jobs:
       SOURCE_SHA: ${{ inputs.source_sha }}
       ARTIFACT_SHA256: ${{ inputs.artifact_sha256 }}
     steps:
+      - name: Require a verified Pages deployment route
+        run: |
+          echo "::error::Publication is blocked until the actual Pages source is verified and an exact-artifact deployment route is configured. GITHUB_TOKEN commits do not trigger branch-based Pages builds."
+          exit 1
       - uses: actions/checkout@v4
         with:
           ref: main
-          persist-credentials: true
+          persist-credentials: false
       - name: Check original run identity before downloading
         run: python3 .github/automation/site_artifact.py check-run
       - uses: actions/download-artifact@v4
@@ -50,21 +52,3 @@ jobs:
           github-token: ${{ github.token }}
       - name: Verify original bytes and provenance
         run: python3 .github/automation/site_artifact.py verify
-      - name: Promote original site into existing docs source
-        run: |
-          set -euo pipefail
-          python3 - <<'PYCODE'
-          from pathlib import Path
-          import shutil, tarfile
-          target=Path('docs')
-          if target.exists(): shutil.rmtree(target)
-          target.mkdir()
-          with tarfile.open('candidate/artifact.tar') as tar:
-              tar.extractall(target, filter='data')
-          PYCODE
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- docs
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "site: promote verified source ${SOURCE_SHA}"
-          git push origin HEAD:main
