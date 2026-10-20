@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "upstream_repository": "awesome-deepseekharness/awesome-deepseek-harness",
+  "upstream_branch": "main",
+  "default_branch": "main",
+  "sync_branch": "sync-only/upstream-main",
+  "release_source": "none-recognized",
+  "automatic_publish": false,
+  "historical_backfill": false,
+  "preserve_local_workflows": true,
+  "manual_workflows": [
+    "site.yml",
+    "site-promote.yml",
+    "star-history.yml",
+    "curator.yml",
+    "curator-gate.yml",
+    "curator-triage.yml"
+  ],
+  "publication_note": "No automatic publisher is configured; manual workflows never bypass provenance, source, license or compatibility checks.",
+  "site_build_workflow": "site.yml"
+}

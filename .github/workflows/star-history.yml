@@ -1,12 +1,7 @@
 name: Star History
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'  # every 6h, refreshes time axis and picks up unstars
-  watch:
-    types: [started]       # refresh shortly after a new star
   workflow_dispatch:
-
 permissions:
   contents: write
 
