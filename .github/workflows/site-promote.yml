@@ -1,0 +1,54 @@
+name: Promote verified site candidate (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Successful manual site build run ID
+        required: true
+        type: string
+      source_sha:
+        description: Exact source commit recorded in candidate provenance
+        required: true
+        type: string
+      artifact_sha256:
+        description: SHA256 of the original artifact.tar from the build summary
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: manual-site-publication
+  cancel-in-progress: false
+jobs:
+  promote:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BUILD_RUN_ID: ${{ inputs.build_run_id }}
+      SOURCE_SHA: ${{ inputs.source_sha }}
+      ARTIFACT_SHA256: ${{ inputs.artifact_sha256 }}
+    steps:
+      - name: Require a verified Pages deployment route
+        run: |
+          echo "::error::Publication is blocked until the actual Pages source is verified and an exact-artifact deployment route is configured. GITHUB_TOKEN commits do not trigger branch-based Pages builds."
+          exit 1
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Check original run identity before downloading
+        run: python3 .github/automation/site_artifact.py check-run
+      - uses: actions/download-artifact@v4
+        with:
+          name: site-candidate
+          path: candidate
+          run-id: ${{ inputs.build_run_id }}
+          github-token: ${{ github.token }}
+      - name: Verify original bytes and provenance
+        run: python3 .github/automation/site_artifact.py verify
