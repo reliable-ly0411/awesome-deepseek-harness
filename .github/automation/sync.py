@@ -24,7 +24,7 @@ def sync(config, push=False):
     if git('status', '--porcelain').stdout.strip():
         raise RuntimeError('Working tree must be clean')
     before = git('rev-parse', 'HEAD').stdout.strip()
-    git('fetch', '--no-tags', 'https://github.com/' + repo + '.git', 'refs/heads/' + branch)
+    git('fetch', '--no-recurse-submodules', '--no-tags', 'https://github.com/' + repo + '.git', 'refs/heads/' + branch)
     upstream = git('rev-parse', 'FETCH_HEAD^{commit}').stdout.strip()
     if git('merge-base', '--is-ancestor', upstream, before, check=False).returncode == 0:
         return {'changed': False, 'source_sha': before, 'upstream_sha': upstream}
