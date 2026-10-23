@@ -17,5 +17,15 @@
     "curator-triage.yml"
   ],
   "publication_note": "No automatic publisher is configured; manual workflows never bypass provenance, source, license or compatibility checks.",
-  "site_build_workflow": "site.yml"
+  "site_build_workflow": "site.yml",
+  "downstream_repository": "reliable-ly0411/awesome-deepseek-harness",
+  "upstream_contributions": false,
+  "preserve_local_paths": [
+    ".github"
+  ],
+  "disabled_external_workflows": [
+    "curator.yml",
+    "curator-gate.yml",
+    "curator-triage.yml"
+  ]
 }
