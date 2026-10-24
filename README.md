@@ -23,7 +23,7 @@ English | [中文](README.zh.md)
 </p>
 
 > ⭐ **Found this list useful? Star it — it takes 2 seconds, and it happens to be the #1 way to help others discover dsh plugins.**
-> Save the list now so your next useful plugin is easier to find. Your ⭐ also supports the community maintaining this directory. Currently **23 → 100 stars is our first milestone (77 to go)**. To receive repository updates, choose your notification preferences in GitHub’s Watch menu.
+> Save the list now so your next useful plugin is easier to find. Your ⭐ also supports the community maintaining this directory. Currently **26 → 100 stars is our first milestone (74 to go)**. To receive repository updates, choose your notification preferences in GitHub’s Watch menu.
 >
 > **Share & spread:** if you built or love a plugin here, share its original repository so others can explore it. [Share on X](https://twitter.com/intent/tweet?text=Awesome%20DeepSeek%20Harness%20%E2%80%94%20Everything%20is%20a%20Plugin%20%E2%9A%A1%20Curated%20dsh%20plugins%2C%20tools%20%26%20skills%20for%20%40deepseek_ai%20harness&url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&hashtags=dsh,deepseek,opensource) · [Share on Reddit](https://www.reddit.com/submit?url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&title=Awesome%20DeepSeek%20Harness%20%E2%80%94%20curated%20plugins%20%26%20skills) · [Discuss on Discord](https://discord.gg/Ycq5dCaS4) · [Copy link](https://github.com/awesome-deepseekharness/awesome-deepseek-harness)
 >
@@ -102,7 +102,7 @@ The hottest category — giving text-only models "eyes."
 
 | Project | Description | ⭐ |
 | --- | --- | --- |
-| [zhu1090093659/dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui) | Plugin & skin collection for the DSH Web UI: task board, git graph, right-side panel, remote mobile UI, pet, live token stats, skin center | 7558 |
+| [zhu1090093659/dsh-web](https://github.com/zhu1090093659/dsh-web) | Plugin & skin collection for the DSH Web UI: task board, git graph, right-side panel, remote mobile UI, pet, live token stats, skin center | 9270 |
 | [Small-tailqwq/dsh-deep-whale](https://github.com/Small-tailqwq/dsh-deep-whale) | "Whale girl" skin series for DSH Web (maid-atelier) | 2077 |
 | [vlln/whale-girl](https://github.com/vlln/whale-girl) | Desktop pet plugin for the DSH Web GUI (QQ-pet style): floating, draggable, feedable | 322 |
 | [omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) | A complete sidebar workbench: file rendering/editing, terminal, Git, subagents, third-party pages | 3593 |
@@ -125,7 +125,7 @@ The hottest category — giving text-only models "eyes."
 | [ccch1mneyyy/dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | Claude Code-style full-screen terminal plugin: pixel-whale top bar, streaming thoughts, double-Esc rollback, TPS gauge | 3030 |
 | [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) | Remote phone access to the DSH Web UI: QR for LAN/cloudflared public access, live sync, mobile layout, settings page | 1123 |
 | [huiliyi37/dsh-tianshu-tui](https://github.com/huiliyi37/dsh-tianshu-tui) | Interactive terminal UI + harness workflows: adds TDD, evidence gates, vision modules | 276 |
-| [anywhere-labs/deepseek-harness-desktop](https://github.com/anywhere-labs/deepseek-harness-desktop) | A modern desktop experience for the DSH ecosystem | 26457 |
+| [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop) | A modern desktop experience for the DSH ecosystem | 32280 |
 | [hust-open-atom-club/oh-dsh](https://github.com/hust-open-atom-club/oh-dsh) | Community DSH distribution: unified TUI, desktop, and Web UI with layered install | 315 |
 | [vibeinging/deepseek-harness-desktop-app](https://github.com/vibeinging/deepseek-harness-desktop-app) | Local AI desktop workspace: sessions, projects, files, web research, plugins, Office artifacts | 584 |
 | [ChisaAlter/Deepseek-Harness-Desktop](https://github.com/ChisaAlter/Deepseek-Harness-Desktop) | Electron desktop shell for the DSH web UI, with themes & backgrounds | 164 |
@@ -190,6 +190,11 @@ The hottest category — giving text-only models "eyes."
 | [ff66ccff/dsh-ATN](https://github.com/ff66ccff/dsh-ATN) | Adaptive topology multi-agent preset for DeepSeek Harness with peer messaging, a shared board, task handoff and live network visualization. Install: `dsh plugin --profile web add dsh-atn@0.4.1`. | 2 |
 | [lcestou/dsh-oh-my-claude](https://github.com/lcestou/dsh-oh-my-claude) | Claude Code CLI as a native dsh provider: the logged-in `claude` binary does the work on its own subscription, no API key. Live model list, per-session resume, approval relay, images, a memory/rewind/changes panel, workspaces on remote SSH boxes. `dsh plugin --profile web add dsh-oh-my-claude` | 10 |
 | [luobosibing2/dsh-jev-plugin](https://github.com/luobosibing2/dsh-jev-plugin) | Native DSH plugin with a TypeSafe Jev decision layer for skill/file selection, task supervision, tool-output filtering and approval assistance — 12 independently configurable features, all disabled by default (install via the DSH Web plugin manager from the GitHub URL) | 203 |
+| [klarkxy/dsh-plugins#dsh-dev-index](https://github.com/klarkxy/dsh-plugins/tree/main/plugins/dsh-dev-index) | Read official DSH docs in the Plugins page; Creator mode searches docs and checks plugin npm metadata. Install: `dsh plugin --profile web add @klarkxy/dsh-dev-index`. | 7 |
+| [lo2589/deepseek-harness-media](https://github.com/lo2589/deepseek-harness-media) | Composer-bar buttons for DSH Web: switch model providers (GLM, MiniMax, OpenAI, Claude, local Ollama) without editing YAML, take screenshots, upload images/SVG/text files, send images to a vision model, plus a session media panel and history search. Install: `dsh plugin --profile web add file:./dsh-provider-quick-config`. | 4 |
+| [skyjjgw/dsh-version-guard](https://github.com/skyjjgw/dsh-version-guard) | Snapshots plugin versions and profile configuration, with an independent recovery page to restore a known-good configuration when DSH cannot start. | 1 |
+| [weibaohui/dsh-favorites](https://github.com/weibaohui/dsh-favorites) | Session favorites: bookmark any conversation into a browser-style favorites panel — one-click star from session rows, folders for organization, notes, custom display names, resume session, fork into a new session, basic session stats, plus a fork-relationship graph showing how conversations derive from one another. Installable via `dsh plugin add @weibaohui/dsh-favorites` | 1 |
+| [JeffTsuiCUG/dsh-connect-minimaxcode](https://github.com/JeffTsuiCUG/dsh-connect-minimaxcode) | Connect the models of a locally signed-in MiniMax Code desktop app (CN build) to DSH, or sign in with the plugin's own OAuth 2.0 device-code flow (PKCE, the plugin never sees the password): Anthropic Messages compatible, live model catalog, daily credit check-in, and a credit balance with expiry details that follows the selected model in the composer tool row and stays on the plugin page. Unofficial plugin on MiniMax's undocumented interfaces, for study and research only. Install: `dsh plugin --profile desktop add dsh-connect-minimaxcode` | 0 |
 
 ### 📚 Skills
 
@@ -200,7 +205,7 @@ The hottest category — giving text-only models "eyes."
 | [hyhmrright/brooks-lint](https://github.com/hyhmrright/brooks-lint) | AI code reviews grounded in 12 classic engineering books: decay-risk diagnostics, 6 analysis modes | 1474 |
 | [GanyuanRan/Aegis](https://github.com/GanyuanRan/Aegis) | Make coding agents architecture-aware: baseline-first, evidence-verified, drift-checked | 1185 |
 | [superdesigndev/superdesign-skill](https://github.com/superdesigndev/superdesign-skill) | The design skill for coding agents: stop shipping AI-slop UI, ship shippable frontends | 556 |
-| [yogsoth-ai/de-anthropocentric-research-engine](https://github.com/yogsoth-ai/de-anthropocentric-research-engine) | 900+ pure-markdown research skills: 4-layer hierarchy, 9 composable packages, 6 MCP integrations | 470 |
+| [yogsoth-ai/de-anthropocentric-research-engine](https://github.com/yogsoth-ai/de-anthropocentric-research-engine) | A research engine for agents: literature synthesis, gap validation, hypothesis formation and experiment design from a stated direction - plan approved before it runs, backtracks when evidence is thin, pure markdown | 505 |
 | [Minara-AI/minara-skills](https://github.com/Minara-AI/minara-skills) | Trading skills to make your agent earn for you | 345 |
 | [linhay/harmony-next.skills](https://github.com/linhay/harmony-next.skills) | Expert guidance for HarmonyOS NEXT (API 12+) development | 347 |
 | [alaliqing/claude-paper](https://github.com/alaliqing/claude-paper) | Cross-agent research paper toolkit: summaries, deep study, code demos, local web viewer | 336 |
@@ -228,6 +233,7 @@ The hottest category — giving text-only models "eyes."
 | [JingbiaoMei/Tokdash](https://github.com/JingbiaoMei/Tokdash) | Visualization & analytics for sessions and quota usage: heatmaps, cost tracking | 72 |
 | [EthanYoQ/Invoice-Downloader](https://github.com/EthanYoQ/Invoice-Downloader) | DSH bundle for local IMAP invoice download, OCR, archival, and Excel reimbursement summaries | 415 |
 | [SuperJJ007/papermachine](https://github.com/SuperJJ007/papermachine) | Desktop data-analysis app built on DeepSeek Harness, running local Python and R with inspectable execution steps and chart/table provenance. | 59 |
+| [pavel-logachev/dsh-mobile](https://github.com/pavel-logachev/dsh-mobile) | Native Android app + host plugin for DSH: all project chats, photos/files, steer, agent questions; QR pairing, Wi-Fi/Tailscale, no cloud | 1 |
 
 ---
 

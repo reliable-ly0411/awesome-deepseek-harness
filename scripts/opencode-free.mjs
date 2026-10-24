@@ -19,6 +19,22 @@ function zeroCost(value) {
   return false;
 }
 
+// Vendor preference is a deliberate trust policy, not a capability claim. The
+// order is the maintainer priority: proven model families before a newer
+// release from a vendor with no track record. Add a vendor here only after its
+// free models have a reliable history in this automation.
+export const TRUSTED_FREE_MODEL_VENDORS = Object.freeze([
+  'deepseek', 'glm', 'minimax', 'kimi', 'qwen', 'step', 'muse',
+]);
+const vendorPatterns = TRUSTED_FREE_MODEL_VENDORS.map(vendor =>
+  [vendor, new RegExp(`^${vendor}(?:$|[-_.\\d])`, 'i')]);
+
+function vendorRank(model) {
+  const id = (model.fullID || '').replace(/^opencode\//i, '');
+  const index = vendorPatterns.findIndex(([, pattern]) => pattern.test(id));
+  return index === -1 ? TRUSTED_FREE_MODEL_VENDORS.length : index;
+}
+
 export function rankFreeModels(models) {
   const released = (model) => Date.parse(model.release_date) || 0;
   return [...new Map(models.filter(model =>
@@ -28,6 +44,7 @@ export function rankFreeModels(models) {
     model.capabilities?.input?.text === true && model.capabilities?.output?.text === true &&
     (!model.status || model.status === 'active')
   ).map(model => [model.fullID, model])).values()].sort((a, b) =>
+    vendorRank(a) - vendorRank(b) ||
     released(b) - released(a) ||
     Number(!!b.capabilities.reasoning) - Number(!!a.capabilities.reasoning) ||
     (b.limit?.context || 0) - (a.limit?.context || 0) ||
@@ -46,6 +63,10 @@ function executable() {
     }
   }
   throw new Error('OpenCode executable not found; install opencode-ai or set OPENCODE_BIN');
+}
+
+function errorMessage(event) {
+  return event.error?.data?.message || event.error?.message || event.error?.name || 'Provider error';
 }
 
 export function runCli(args, { cwd = process.cwd(), timeoutMs = 30000, env = {} } = {}) {
@@ -73,7 +94,7 @@ export function runCli(args, { cwd = process.cwd(), timeoutMs = 30000, env = {} 
         const errors = out.split(/\r?\n/).flatMap(line => {
           try {
             const event = JSON.parse(line);
-            return event.type === 'error' ? [event.error?.data?.message || event.error?.message || event.error?.name || 'Provider error'] : [];
+            return event.type === 'error' ? [errorMessage(event)] : [];
           } catch { return []; }
         });
         reject(new Error(`OpenCode exited ${code}: ${(errors.join('; ') || err || 'No error details').slice(-500)}`));
@@ -96,7 +117,7 @@ export async function discoverFreeModels() {
     }
     const models = rankFreeModels(parseModels(result.out));
     if (!models.length) throw new Error('CLI lists no verified zero-cost, tool-capable text models');
-    console.log(`[models] Free candidates (release date, then capabilities): ${models.map(m => `${m.fullID} [${m.release_date || 'date unknown'}]`).join(', ')}`);
+    console.log(`[models] Free candidates (trusted vendors first, then release date): ${models.map(m => `${m.fullID} [${m.release_date || 'date unknown'}]`).join(', ')}`);
     return models;
   })();
   try { return await discovered; } catch (error) { discovered = undefined; throw error; }
@@ -106,16 +127,24 @@ export function responseText(output) {
   const events = output.split(/\r?\n/).flatMap(line => {
     try { return [JSON.parse(line)]; } catch { return []; }
   });
-  if (events.some(event => event.type === 'error')) throw new Error('OpenCode returned an error event');
+  const errors = events.filter(event => event.type === 'error');
+  if (errors.length) throw new Error(`OpenCode returned an error event: ${errors.map(errorMessage).join('; ')}`);
+  // Only the final assistant step is the answer. Earlier steps can contain
+  // planning text before tool calls, which must not contaminate a strict decision.
+  // A final step without text must fail rather than reuse an earlier approval.
+  const lastStep = events.findLastIndex(event => event.type === 'step_start');
+  const finalEvents = lastStep < 0 ? events : events.slice(lastStep + 1);
   // Tool input and echoed prompts must never become reviewer decisions.
-  const text = events.filter(event => event.type === 'text' && typeof event.part?.text === 'string')
+  const text = finalEvents.filter(event => event.type === 'text' && typeof event.part?.text === 'string')
     .map(event => event.part.text).join('\n').trim();
   if (!text) throw new Error('OpenCode returned no assistant text');
   return text;
 }
 
-export async function runModel(model, prompt, { agent = 'curator', cwd = process.cwd(), timeoutMs = 180000, config = {} } = {}) {
-  const result = await runCli(['run', '--format', 'json', '--model', model, '--agent', agent, prompt], {
+export async function runModel(model, prompt, { agent = 'curator', cwd = process.cwd(), timeoutMs = 180000, config = {}, cli = runCli } = {}) {
+  // Explicit --dir also keeps the server-side session in the intended project;
+  // child-process cwd alone can resolve to the global/home project in recent CLIs.
+  const result = await cli(['run', '--dir', cwd, '--format', 'json', '--model', model, '--agent', agent, prompt], {
     cwd, timeoutMs,
     // Both the main and auxiliary model stay on the selected free model.
     env: { OPENCODE_CONFIG_CONTENT: JSON.stringify({ ...config, model, small_model: model }) },
@@ -123,15 +152,28 @@ export async function runModel(model, prompt, { agent = 'curator', cwd = process
   return responseText(result.out);
 }
 
+// A deny-all profile removes the coding tool definitions and currently makes
+// Zen reject even valid CLI requests with FreeTierError. Keep tools defined
+// but approval-gated: non-interactive `run` rejects every ask unless --auto is
+// passed. Never add --auto or allow tools for this probe.
+export const APPROVAL_GATED_PERMISSION = Object.freeze({ '*': 'ask' });
+
+export function approvalGatedAgent(agent, options = {}) {
+  return { agent: { [agent]: { mode: 'primary', permission: APPROVAL_GATED_PERMISSION, ...options } } };
+}
+
 const verified = new Set();
 const failed = new Set();
-export async function probeModel(model, timeoutMs = 35000) {
+export async function probeModel(model, timeoutMs = 35000, { run = runModel } = {}) {
   if (verified.has(model)) return;
   const cwd = mkdtempSync(path.join(os.tmpdir(), 'opencode-probe-'));
   try {
-    const text = await runModel(model, 'Reply with exactly OPENCODE_FREE_OK. Do not use tools.', {
+    const text = await run(model, 'Reply with exactly OPENCODE_FREE_OK. Do not use tools.', {
       cwd, agent: 'probe', timeoutMs,
-      config: { permission: { '*': 'deny' }, agent: { probe: { mode: 'primary', prompt: 'Follow the response instruction exactly.', permission: { '*': 'deny' } } } },
+      config: {
+        permission: APPROVAL_GATED_PERMISSION,
+        ...approvalGatedAgent('probe', { prompt: 'Follow the response instruction exactly.' }),
+      },
     });
     if (text.trim() !== 'OPENCODE_FREE_OK') throw new Error('Probe did not return the expected response');
     verified.add(model);
@@ -158,6 +200,11 @@ export async function withFreeModel(task, {
       console.log(`[models] Task succeeded with ${fullID}`);
       return { model: fullID, result };
     } catch (error) {
+      // This is a request/profile rejection, not a model outage. Rotating through
+      // the whole free catalog only repeats the same 403 and hides the cause.
+      if (/free tier can only be used from within OpenCode/i.test(error.message)) {
+        throw new Error(`OpenCode rejected the agent/tool profile; check permissions and CLI compatibility. ${error.message}`);
+      }
       failures.add(fullID);
       lastError = error;
       console.warn(`[models] ${fullID} failed: ${error.message}; trying next free candidate`);

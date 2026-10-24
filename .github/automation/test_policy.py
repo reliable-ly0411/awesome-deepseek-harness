@@ -49,5 +49,42 @@ class PolicyTests(unittest.TestCase):
         self.assertNotIn('deploy-pages', path.read_text())
 
 
+
+    def test_sync_only_destination_and_preserved_paths(self):
+        config = json.loads((ROOT / '.github/automation/policy.json').read_text())
+        self.assertFalse(config['upstream_contributions'])
+        self.assertTrue(config['downstream_repository'].startswith('reliable-ly0411/'))
+        self.assertNotEqual(config['downstream_repository'], config['upstream_repository'])
+        self.assertNotEqual(config['sync_branch'], config['default_branch'])
+        self.assertIn('.github', config['preserve_local_paths'])
+        for path in config['preserve_local_paths']:
+            self.assertTrue((ROOT / path).exists(), path)
+
+    def test_external_contribution_interfaces_are_inert(self):
+        config = json.loads((ROOT / '.github/automation/policy.json').read_text())
+        for name in config['disabled_external_workflows']:
+            with self.subTest(workflow=name):
+                doc = yaml.load((ROOT / '.github/workflows' / name).read_text(), Loader=yaml.BaseLoader)
+                self.assertEqual(set(doc['on']), {'workflow_dispatch'})
+                self.assertEqual(doc['permissions'], {'contents': 'read'})
+                for job in doc['jobs'].values():
+                    self.assertNotIn('env', job)
+                    self.assertNotIn('permissions', job)
+                    for step in job['steps']:
+                        self.assertEqual(set(step), {'run'})
+                        self.assertTrue(all(line.strip().startswith('echo ')
+                                            for line in step['run'].splitlines()))
+
+    def test_source_sync_passes_pinned_default_policy_to_script(self):
+        doc = yaml.load((ROOT / '.github/workflows/source-sync.yml').read_text(), Loader=yaml.BaseLoader)
+        select = next(step for step in doc['jobs']['sync']['steps'] if step.get('id') == 'trusted')
+        self.assertLess(select['run'].index('git rev-parse HEAD'),
+                        select['run'].index('git checkout'))
+        self.assertIn('"$status" -ne 2', select['run'])
+        merge = doc['jobs']['sync']['steps'][-1]
+        self.assertEqual(merge['env']['POLICY_REF'], '${{ steps.trusted.outputs.sha }}')
+        self.assertIn('--policy-ref "$POLICY_REF"', merge['run'])
+
+
 if __name__ == '__main__':
     unittest.main()

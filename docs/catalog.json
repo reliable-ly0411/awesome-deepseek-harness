@@ -9,17 +9,17 @@
     "zh-CN"
   ],
   "sourceUpdated": {
-    "en": "2026-10-20",
-    "zh": "2026-10-20"
+    "en": "2026-10-24",
+    "zh": "2026-10-24"
   },
   "sources": {
     "en": "https://github.com/awesome-deepseekharness/awesome-deepseek-harness/blob/main/README.md",
     "zh": "https://github.com/awesome-deepseekharness/awesome-deepseek-harness/blob/main/README.zh.md"
   },
   "starCountNote": "Project star counts are README snapshots, not live counts. Verify installation and compatibility in the linked upstream repository.",
-  "repositoryStars": 23,
+  "repositoryStars": 26,
   "firstStarGoal": 100,
-  "total": 146,
+  "total": 152,
   "groups": [
     {
       "id": "MKT",
@@ -271,11 +271,11 @@
       "zhTitle": "Web UI、皮肤与桌面宠物",
       "items": [
         {
-          "name": "zhu1090093659/dsh-web-ui",
-          "url": "https://github.com/zhu1090093659/dsh-web-ui",
+          "name": "zhu1090093659/dsh-web",
+          "url": "https://github.com/zhu1090093659/dsh-web",
           "desc": "Plugin & skin collection for the DSH Web UI: task board, git graph, right-side panel, remote mobile UI, pet, live token stats, skin center",
-          "stars": 7558,
-          "zhName": "zhu1090093659/dsh-web-ui",
+          "stars": 9270,
+          "zhName": "zhu1090093659/dsh-web",
           "zhDesc": "DSH Web UI 插件与皮肤合集:任务看板、git 图、右侧面板、移动端 UI、宠物、实时 token 统计、皮肤中心"
         },
         {
@@ -432,11 +432,11 @@
           "zhDesc": "交互式终端 UI + harness 工作流:增加 TDD、证据门、视觉图像模块"
         },
         {
-          "name": "anywhere-labs/deepseek-harness-desktop",
-          "url": "https://github.com/anywhere-labs/deepseek-harness-desktop",
+          "name": "anywhere-labs/dsh-desktop",
+          "url": "https://github.com/anywhere-labs/dsh-desktop",
           "desc": "A modern desktop experience for the DSH ecosystem",
-          "stars": 26457,
-          "zhName": "anywhere-labs/deepseek-harness-desktop",
+          "stars": 32280,
+          "zhName": "anywhere-labs/dsh-desktop",
           "zhDesc": "为 DSH 生态打造的现代化桌面端体验"
         },
         {
@@ -919,9 +919,49 @@
           "stars": 203,
           "zhName": "luobosibing2/dsh-jev-plugin",
           "zhDesc": "原生 DSH 插件：TypeSafe Jev 决策层负责技能/文件筛选、任务监督、工具输出过滤与审批辅助——12 项功能独立配置、默认全部关闭（经 DSH Web 插件管理器用 GitHub 地址安装）"
+        },
+        {
+          "name": "klarkxy/dsh-plugins#dsh-dev-index",
+          "url": "https://github.com/klarkxy/dsh-plugins/tree/main/plugins/dsh-dev-index",
+          "desc": "Read official DSH docs in the Plugins page; Creator mode searches docs and checks plugin npm metadata. Install: `dsh plugin --profile web add @klarkxy/dsh-dev-index`.",
+          "stars": 7,
+          "zhName": "klarkxy/dsh-plugins#dsh-dev-index",
+          "zhDesc": "在 DSH 插件页阅读官方文档；创造模式检索文档、查询插件 npm 元数据。安装：`dsh plugin --profile web add @klarkxy/dsh-dev-index`。"
+        },
+        {
+          "name": "lo2589/deepseek-harness-media",
+          "url": "https://github.com/lo2589/deepseek-harness-media",
+          "desc": "Composer-bar buttons for DSH Web: switch model providers (GLM, MiniMax, OpenAI, Claude, local Ollama) without editing YAML, take screenshots, upload images/SVG/text files, send images to a vision model, plus a session media panel and history search. Install: `dsh plugin --profile web add file:./dsh-provider-quick-config`.",
+          "stars": 4,
+          "zhName": "lo2589/deepseek-harness-media",
+          "zhDesc": "DSH 网页版输入框旁的一排按钮：不改 YAML 切换模型提供方（GLM、MiniMax、OpenAI、Claude、本地 Ollama），截图，上传图片/SVG/文本文件，把图片交给视觉模型读，另有会话媒体面板和历史搜索。安装：`dsh plugin --profile web add file:./dsh-provider-quick-config`。"
+        },
+        {
+          "name": "skyjjgw/dsh-version-guard",
+          "url": "https://github.com/skyjjgw/dsh-version-guard",
+          "desc": "Snapshots plugin versions and profile configuration, with an independent recovery page to restore a known-good configuration when DSH cannot start.",
+          "stars": 1,
+          "zhName": "skyjjgw/dsh-version-guard",
+          "zhDesc": "记录插件版本与 profile 配置快照，在 DSH 无法启动时通过独立恢复页回退到已知可用配置。"
+        },
+        {
+          "name": "weibaohui/dsh-favorites",
+          "url": "https://github.com/weibaohui/dsh-favorites",
+          "desc": "Session favorites: bookmark any conversation into a browser-style favorites panel — one-click star from session rows, folders for organization, notes, custom display names, resume session, fork into a new session, basic session stats, plus a fork-relationship graph showing how conversations derive from one another. Installable via `dsh plugin add @weibaohui/dsh-favorites`",
+          "stars": 1,
+          "zhName": "weibaohui/dsh-favorites",
+          "zhDesc": "会话收藏夹：把任意会话收藏进浏览器收藏夹式的管理面板——左侧会话行一键收藏/星标，主面板支持文件夹分门别类、备注、自定义显示名、一键继续会话、Fork 新会话、会话基本统计，外加一张清晰展示会话派生关系的 fork 关系图。`dsh plugin add @weibaohui/dsh-favorites` 即装"
+        },
+        {
+          "name": "JeffTsuiCUG/dsh-connect-minimaxcode",
+          "url": "https://github.com/JeffTsuiCUG/dsh-connect-minimaxcode",
+          "desc": "Connect the models of a locally signed-in MiniMax Code desktop app (CN build) to DSH, or sign in with the plugin's own OAuth 2.0 device-code flow (PKCE, the plugin never sees the password): Anthropic Messages compatible, live model catalog, daily credit check-in, and a credit balance with expiry details that follows the selected model in the composer tool row and stays on the plugin page. Unofficial plugin on MiniMax's undocumented interfaces, for study and research only. Install: `dsh plugin --profile desktop add dsh-connect-minimaxcode`",
+          "stars": 0,
+          "zhName": "JeffTsuiCUG/dsh-connect-minimaxcode",
+          "zhDesc": "把本机已登录的 MiniMax Code 桌面 App（国内版）接入 DSH，也可用插件自带的 OAuth 2.0 设备码登录（PKCE，插件不接触密码）：Anthropic Messages 兼容、模型目录实时拉取、每日签到，积分余额与到期信息跟随所选模型显示在输入框工具行，并保留在插件页面。非官方插件，依赖 MiniMax 客户端的非公开接口，仅供学习研究。安装：`dsh plugin --profile desktop add dsh-connect-minimaxcode`"
         }
       ],
-      "count": 54,
+      "count": 59,
       "prefix": "U7"
     },
     {
@@ -972,10 +1012,10 @@
         {
           "name": "yogsoth-ai/de-anthropocentric-research-engine",
           "url": "https://github.com/yogsoth-ai/de-anthropocentric-research-engine",
-          "desc": "900+ pure-markdown research skills: 4-layer hierarchy, 9 composable packages, 6 MCP integrations",
-          "stars": 470,
+          "desc": "A research engine for agents: literature synthesis, gap validation, hypothesis formation and experiment design from a stated direction - plan approved before it runs, backtracks when evidence is thin, pure markdown",
+          "stars": 505,
           "zhName": "yogsoth-ai/de-anthropocentric-research-engine",
-          "zhDesc": "900+ 纯 markdown 研究技能:4 层层级、9 个自由组合包、6 个 MCP 集成"
+          "zhDesc": "面向 agent 的研究引擎：给定方向后自行完成文献综合、空白验证、假设形成与实验设计；执行前先审批计划，证据不足时退回文献；纯 markdown"
         },
         {
           "name": "Minara-AI/minara-skills",
@@ -1161,9 +1201,17 @@
           "stars": 59,
           "zhName": "SuperJJ007/papermachine",
           "zhDesc": "基于 DeepSeek Harness 的桌面数据分析应用，在本机运行 Python 和 R，支持检查执行步骤及追溯图表和表格的来源。"
+        },
+        {
+          "name": "pavel-logachev/dsh-mobile",
+          "url": "https://github.com/pavel-logachev/dsh-mobile",
+          "desc": "Native Android app + host plugin for DSH: all project chats, photos/files, steer, agent questions; QR pairing, Wi-Fi/Tailscale, no cloud",
+          "stars": 1,
+          "zhName": "pavel-logachev/dsh-mobile",
+          "zhDesc": "DSH 原生 Android 应用 + 宿主插件：手机查看所有项目会话、发送照片/文件、引导智能体、回答其提问；扫码配对，Wi-Fi/Tailscale，无需云端"
         }
       ],
-      "count": 12,
+      "count": 13,
       "prefix": "U9"
     },
     {

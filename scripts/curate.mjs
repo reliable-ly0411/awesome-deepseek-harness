@@ -10,16 +10,75 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawn } from 'node:child_process';
-import { runCli, runModel, withFreeModel } from './opencode-free.mjs';
+import { approvalGatedAgent, runCli, runModel, withFreeModel } from './opencode-free.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const REPORT_FILE = path.join(ROOT, 'curator-report.md');
 const REVIEW_FILE = path.join(ROOT, 'review-comment.md');
+
+const GH_READ_PREFIXES = ['repos/', 'users/', 'search/', 'rate_limit'];
+// Conservative endpoint alphabet: no whitespace or shell metacharacters.
+const GH_READ_CHARS = /^[A-Za-z0-9._~:/?#@!%+,=-]+$/;
+
+// Read-only GitHub API mode for the headless agents. The shell allowlist can
+// only match command strings with globs, so `gh api --method GET repos/*`
+// still accepts a later `-X POST` override. This mode accepts exactly one
+// endpoint, validates it, and always invokes `gh api --method GET` with no
+// way to add method/body flags.
+// The live topic lookup is the only thing allowed to add `invalid`. A PR body
+// or diff that merely says "missing dsh-plugin" must not affect labels.
+export function isPluginTopicInvalid(isPluginAdd, livePluginTopic) {
+  return Boolean(isPluginAdd) && livePluginTopic === 'missing';
+}
+
+export function validateGhReadEndpoint(args) {
+  if (args.length !== 1) throw new Error('Usage: node scripts/curate.mjs gh-read <endpoint>');
+  const endpoint = args[0];
+  if (!GH_READ_PREFIXES.some(prefix => endpoint === prefix.replace(/\/$/, '') || endpoint.startsWith(prefix))) {
+    throw new Error(`Endpoint not allowed: ${endpoint}`);
+  }
+  if (!GH_READ_CHARS.test(endpoint) || endpoint.split('/').includes('..')) {
+    throw new Error('Endpoint contains unsupported characters or traversal');
+  }
+  return endpoint;
+}
+
+export function runGhRead(endpoint, { gh = 'gh', spawnFn = spawn } = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawnFn(gh, ['api', '--method', 'GET', endpoint], {
+      stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true, shell: false,
+    });
+    let out = '', err = '';
+    child.stdout.on('data', data => { out += data; });
+    child.stderr.on('data', data => { err = (err + data).slice(-4000); });
+    child.on('error', reject);
+    child.on('close', code => {
+      if (code === 0) resolve(out);
+      else reject(new Error(`gh api GET failed (${code}): ${err.trim() || 'no error details'}`));
+    });
+  });
+}
+
+async function ghReadCli(args) {
+  const endpoint = validateGhReadEndpoint(args);
+  process.stdout.write(await runGhRead(endpoint));
+}
+
+// Ambiguous-PR classification must use the same approval-gated profile as the
+// probe. Denying every tool removes the tool definitions and triggers the free
+// tier's agent/tool-profile rejection before a label can be suggested.
+export function classifierConfig() {
+  return approvalGatedAgent('classifier');
+}
 async function runPreliminaryChecks(pr, issue) {
   const out = [];
+  // Keep the live topic result separate from untrusted PR/issue text. The
+  // auto-labeler must never infer `invalid` from a body or diff that merely
+  // mentions "missing dsh-plugin".
+  let livePluginTopic = 'unknown';
   const exec = (cmd, args) => new Promise(res => {
     const isWin = process.platform === 'win32';
     const useShell = cmd === 'opencode' && isWin; // gh is binary, no shell needed; opencode on Win is .ps1
@@ -32,14 +91,22 @@ async function runPreliminaryChecks(pr, issue) {
   });
   if (pr) {
     out.push(`## Preliminary PR #${pr} checks (deterministic)`);
-    const prInfo = await exec('gh', ['pr', 'view', String(pr), '--json', 'title,body,files,author,authorAssociation,additions', '--jq', '.']);
+    const prInfo = await exec('gh', ['pr', 'view', String(pr), '--json', 'title,body,files,author,authorAssociation,additions,headRefName,labels', '--jq', '.']);
     if (prInfo.code === 0) {
       try {
         const j = JSON.parse(prInfo.out);
         const titleOk = /^(Add|docs: add) .+ to .+/i.test(j.title || '');
         out.push(`- Title: "${j.title}" ${titleOk ? '✅ matches Add owner/repo to Category' : '❌ should be Add owner/repo to Category'}`);
+        out.push(`- Body: ${(j.body || '').slice(0, 1200) || '(empty)'}`);
+        out.push(`- Head: ${j.headRefName || '(unknown)'}; Labels: ${(j.labels || []).map(l => l.name).join(', ') || '(none)'}`);
         const files = (j.files || []).map(f => f.path).join(', ');
         out.push(`- Files: ${files || '(none)'} ${files.includes('README.md') && files.includes('README.zh.md') ? '✅ bilingual' : '❌ missing README.md or README.zh.md'}`);
+        const prDiff = await exec('gh', ['pr', 'diff', String(pr)]);
+        if (prDiff.code === 0 && prDiff.out.trim()) {
+          out.push('--- PR diff (truncated) ---');
+          out.push(prDiff.out.slice(0, 8000));
+          out.push('--- end PR diff ---');
+        }
         // Author trust signals (internal only — LLM must fuse into RECOMMEND, never paste raw PII)
         const authorLogin = j.author?.login || '';
         const assoc = j.authorAssociation || '';
@@ -108,7 +175,9 @@ async function runPreliminaryChecks(pr, issue) {
           if (api.code === 0) {
             try {
               const info = JSON.parse(api.out);
-              out.push(`- Live: stars=${info.stars}, topics=${(info.topics||[]).join(',') || '(none)'}, license=${info.license || '(none)'} ${info.topics?.includes('dsh-plugin') ? '✅ dsh-plugin' : '❌ missing dsh-plugin'}`);
+              const hasPluginTopic = Array.isArray(info.topics) && info.topics.includes('dsh-plugin');
+              livePluginTopic = hasPluginTopic ? 'present' : 'missing';
+              out.push(`- Live: stars=${info.stars}, topics=${(info.topics||[]).join(',') || '(none)'}, license=${info.license || '(none)'} ${hasPluginTopic ? '✅ dsh-plugin' : '❌ missing dsh-plugin'}`);
             } catch { out.push(`- Live fetch parse failed: ${api.out.slice(0,200)}`); }
           } else {
             out.push(`- Live fetch failed for ${repo}: ${api.err.slice(0,200)}`);
@@ -128,6 +197,7 @@ async function runPreliminaryChecks(pr, issue) {
       try {
         const j = JSON.parse(iss.out);
         out.push(`- Title: ${j.title}`);
+        out.push(`- Body: ${(j.body || '').slice(0, 1200) || '(empty)'}`);
         out.push(`- Labels: ${(j.labels||[]).map(l=>l.name).join(', ') || '(none)'} — suggest: plugin suggestion / fix / question`);
         let mRepo = null;
         const ghM = (j.title + ' ' + (j.body||'')).match(/https?:\/\/github\.com\/([a-zA-Z0-9_.-]+\/[a-zA-Z0-9_.-]+)/i);
@@ -141,7 +211,12 @@ async function runPreliminaryChecks(pr, issue) {
           out.push(`- Detected repo: ${mRepo} — check if already listed via grep`);
           const api2 = await exec('gh', ['api', `repos/${mRepo}`, '--jq', '{stars: .stargazers_count, topics: .topics}']);
           if (api2.code === 0) {
-            try { const inf = JSON.parse(api2.out); out.push(`- Live: stars=${inf.stars}, topics=${(inf.topics||[]).join(',')}`); } catch {}
+            try {
+              const inf = JSON.parse(api2.out);
+              const hasPluginTopic = Array.isArray(inf.topics) && inf.topics.includes('dsh-plugin');
+              livePluginTopic = hasPluginTopic ? 'present' : 'missing';
+              out.push(`- Live: stars=${inf.stars}, topics=${(inf.topics||[]).join(',')}`);
+            } catch {}
           }
         }
       } catch (e) { out.push(`- Issue parse failed: ${e.message}`); }
@@ -151,14 +226,17 @@ async function runPreliminaryChecks(pr, issue) {
     const milestoneDiff = await exec('git', ['diff', '--', 'README.md', 'README.zh.md']);
     if (milestoneDiff.code === 0 && /stars is our first milestone|颗星是第一里程碑/.test(milestoneDiff.out)) {
       out.push('Actionable bilingual repository star milestone refresh already applied by scripts/update-repo-stars.mjs. Review the local README diff, preserve it, and cite https://api.github.com/repos/awesome-deepseekharness/awesome-deepseek-harness. Do not report no actionable findings.');
+      out.push('--- README milestone diff (truncated) ---');
+      out.push(milestoneDiff.out.slice(0, 5000));
+      out.push('--- end README milestone diff ---');
     } else {
       out.push('No PR/Issue event — general health audit only');
     }
   }
-  return out.join('\n');
+  return { text: out.join('\n'), livePluginTopic };
 }
 
-async function runAutoLabel(pr, issue, preChecks) {
+async function runAutoLabel(pr, issue, livePluginTopic = 'unknown') {
   const exec = (cmd, args) => new Promise(res => {
     const child = spawn(cmd, args, { stdio: ['pipe','pipe','pipe'], shell: false });
     let o='', e='';
@@ -182,8 +260,6 @@ async function runAutoLabel(pr, issue, preChecks) {
       if (r.code === 0) issueInfo = JSON.parse(r.out);
     }
   } catch {}
-
-  const lowerPre = preChecks.toLowerCase();
 
   if (isPR && prInfo) {
     const title = prInfo.title || '';
@@ -220,7 +296,7 @@ async function runAutoLabel(pr, issue, preChecks) {
     if (isPluginAdd) {
       labelsToAdd.add('plugin');
       labelsToAdd.add('enhancement');
-      if (lowerPre.includes('missing dsh-plugin')) labelsToAdd.add('invalid');
+      if (isPluginTopicInvalid(isPluginAdd, livePluginTopic)) labelsToAdd.add('invalid');
     } else if (hasWorkflow) {
       // Infra / automation PR (like feat(curator): every 3 days...)
       // Map prefix to smarter label: feat/chore/ci/refactor -> enhancement, fix -> bug, docs -> documentation
@@ -242,7 +318,6 @@ async function runAutoLabel(pr, issue, preChecks) {
         labelsToAdd.add('documentation');
       }
       // keep plugin only if actually plugin-related (checked above)
-      if (lowerPre.includes('missing dsh-plugin') && isPluginAdd) labelsToAdd.add('invalid');
     }
 
     // Opencode-style intelligent refinement: try LLM suggestion for ambiguous titles (non-plugin, non-workflow)
@@ -255,7 +330,7 @@ async function runAutoLabel(pr, issue, preChecks) {
           const prompt = `Classify this PR title/files into one label: plugin, enhancement, bug, documentation, question. Title: "${title}" Files: ${files.join(', ')}. Reply only with the label.`;
           const { result: llm } = await withFreeModel(async (model, timeoutMs) => {
             const answer = await runModel(model, prompt.slice(0, 400), { agent: 'classifier', cwd: ROOT, timeoutMs,
-              config: { agent: { classifier: { mode: 'primary', permission: { '*': 'deny' } } } } });
+              config: classifierConfig() });
             if (!/^(plugin|enhancement|bug|documentation|question)$/i.test(answer.trim())) throw new Error('Invalid label');
             return answer;
           }, { totalMs: 60000, attemptMs: 25000 });
@@ -285,9 +360,10 @@ async function runAutoLabel(pr, issue, preChecks) {
     // curator issues (automation) get curator label
     if (t.includes('curator') || t.includes('workflow')) labelsToAdd.add('curator');
   } else {
-    // Fallback: old heuristic if gh fetch failed
-    if (lowerPre.includes('missing dsh-plugin')) labelsToAdd.add('invalid');
-    else if (lowerPre.includes('dsh-plugin') && lowerPre.includes('detected repo:')) labelsToAdd.add('plugin');
+    // Fallback if gh fetch failed: use only the deterministic live result,
+    // never a substring of the PR/issue text.
+    if (livePluginTopic === 'missing') labelsToAdd.add('invalid');
+    else if (livePluginTopic === 'present') labelsToAdd.add('plugin');
   }
 
   // --- Cleanup wrong labels that may have been added before (smart removal) ---
@@ -346,7 +422,7 @@ async function generateWithTraversal(prompt) {
 
 function buildPrompt({ pr, issue, preChecks }) {
   const now = new Date().toISOString();
-  const prInfo = pr ? `PR #${pr} (check via gh pr view ${pr})` : 'no PR event';
+  const prInfo = pr ? `PR #${pr} (metadata included in preChecks)` : 'no PR event';
   const issueInfo = issue ? `Issue #${issue}` : 'no issue event';
   return [
     `You are the autonomous Awesome DSH Curator (see .opencode/agent/curator.md). Be agentic, not mechanical.`,
@@ -359,10 +435,10 @@ function buildPrompt({ pr, issue, preChecks }) {
     `Preliminary deterministic checks (already run by scripts/curate.mjs — use as ground truth, then do deeper verification):`,
     preChecks ? preChecks.split('\n').map(l => `> ${l}`).join('\n') : '> (no preliminary checks)',
     ``,
-    `Task: Do a quick health audit (README tables, duplicates, star drift sample), and if GH_PR/GH_ISSUE is set, preprocess that PR/Issue per curator.md. For any new project (owner/repo), autonomously verify with websearch/webfetch/kitesurf browser (chrome-devtools-mcp via wss://kitesurf.cloudflare.app/devtools/browser) — fetch repo page, check README for dsh install, verify dsh-plugin topic via gh api, and search for the project to confirm it's real. Write findings to the New Project Verification section of curator-report.md (file only, stripped from the public comment). Then provide a maintainer review opinion (Approve / Request changes / Needs discussion) with confidence and 1-paragraph rationale in curator-report.md. Write the postable friendly comment (Thanks @author ..., in PR language, ping @hdjekuue only if author is NOT owner) to review-comment.md ONLY — never paste the full Thanks @... comment into curator-report.md. Always overwrite curator-report.md with the required structure: title \`# curator-report.md — <UTC time>\` (no model), short \`## \` headings with NO dash-suffix descriptors, Preliminary Checks as a markdown table plus fused Author trust, Maintainer Review Opinion as a standalone RECOMMEND line (RECOMMEND: <decision> — confidence <level>.) followed by a Rationale: paragraph (never in the heading, no Suggested comment body), and a final \`<sub>model: opencode/<id></sub>\` line; and overwrite review-comment.md with ONLY the postable comment. Author trust signals in preChecks are INTERNAL: never paste raw account dates/counts/bio into either file; fuse into a single 'Author trust: high/medium/low' line plus risk-adjusted scrutiny (low-trust → strict verification, cap confidence at medium, prefer Needs discussion; never accuse spam/poisoning in review-comment.md, keep it friendly/neutral).`,
+    `Task: Do a quick health audit (README tables, duplicates, star drift sample), and if GH_PR/GH_ISSUE is set, preprocess that PR/Issue per curator.md. For any new project (owner/repo), autonomously verify with websearch/webfetch/kitesurf browser (chrome-devtools-mcp via wss://kitesurf.cloudflare.app/devtools/browser) — fetch repo page, check README for dsh install, verify dsh-plugin topic via \`node scripts/curate.mjs gh-read\`, and search for the project to confirm it's real. Write findings to the New Project Verification section of curator-report.md (file only, stripped from the public comment). Then provide a maintainer review opinion (Approve / Request changes / Needs discussion) with confidence and 1-paragraph rationale in curator-report.md. Write the postable friendly comment (Thanks @author ..., in PR language, ping @hdjekuue only if author is NOT owner) to review-comment.md ONLY — never paste the full Thanks @... comment into curator-report.md. Always overwrite curator-report.md with the required structure: title \`# curator-report.md — <UTC time>\` (no model), short \`## \` headings with NO dash-suffix descriptors, Preliminary Checks as a markdown table plus fused Author trust, Maintainer Review Opinion as a standalone RECOMMEND line (RECOMMEND: <decision> — confidence <level>.) followed by a Rationale: paragraph (never in the heading, no Suggested comment body), and a final \`<sub>model: opencode/<id></sub>\` line; and overwrite review-comment.md with ONLY the postable comment. Author trust signals in preChecks are INTERNAL: never paste raw account dates/counts/bio into either file; fuse into a single 'Author trust: high/medium/low' line plus risk-adjusted scrutiny (low-trust → strict verification, cap confidence at medium, prefer Needs discussion; never accuse spam/poisoning in review-comment.md, keep it friendly/neutral).`,
     ``,
     `Toolbox hints:`,
-    `- Prefer gh api for GitHub data, curl + jq for APIs, webfetch first then kitesurf browser for JS-heavy pages, websearch for auto-discovery.`,
+    `- Prefer \`node scripts/curate.mjs gh-read\` for GitHub reads (it hardcodes GET, rejects method/body flags, and returns raw JSON); webfetch first then kitesurf browser for JS-heavy pages, websearch for auto-discovery. Do not call \`gh api\`, \`git\`, \`jq\` or \`curl\` directly.`,
     `- Use the selected OpenCode model — its zero-cost metadata and response were checked before this task.`,
     `- kitesurf MCP is available as local MCP "kitesurf" (command: npx chrome-devtools-mcp --wsEndpoint=wss://kitesurf.cloudflare.app/devtools/browser) — use it to open https://github.com/owner/repo or demo URLs when webfetch returns shell.`,
     ``,
@@ -385,7 +461,7 @@ No LLM run (no current free CLI model completed the task). This is a determinist
 
 ## Repo Health
 - ${health}
-- Star drift: not checked (fallback). Run \`gh api repos/owner/repo --jq .stargazers_count\` manually for 2–3 rows.
+- Star drift: not checked (fallback). Run \`node scripts/curate.mjs gh-read repos/owner/repo\` manually for 2–3 rows and read \`stargazers_count\`.
 - Duplicates: not checked.
 
 ## PR Triage
@@ -454,9 +530,10 @@ async function main() {
       console.log(`[curate] Comment contains repo link ${urlMatch[1]} — will be considered by curator agent`);
     }
   }
-  const preChecks = await runPreliminaryChecks(pr, issue);
+  const preliminary = await runPreliminaryChecks(pr, issue);
+  const preChecks = preliminary.text;
   console.log(`[curate] Preliminary checks:\n${preChecks}\n---`);
-  try { await runAutoLabel(pr, issue, preChecks); } catch (e) { console.warn(`[curate] autoLabel failed: ${e.message}`); }
+  try { await runAutoLabel(pr, issue, preliminary.livePluginTopic); } catch (e) { console.warn(`[curate] autoLabel failed: ${e.message}`); }
   const prompt = buildPrompt({ pr, issue, preChecks });
   fs.writeFileSync(path.join(ROOT, '.curate-prompt.md'), prompt, 'utf8');
   console.log(`[curate] Prompt written to .curate-prompt.md`);
@@ -488,4 +565,10 @@ async function main() {
   }
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  if (process.argv[2] === 'gh-read') {
+    ghReadCli(process.argv.slice(3)).catch(e => { console.error(e.message); process.exitCode = 1; });
+  } else {
+    main().catch(e => { console.error(e); process.exit(1); });
+  }
+}

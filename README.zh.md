@@ -23,7 +23,7 @@
 </p>
 
 > ⭐ **这个列表帮你省了 1 小时找插件？点个 Star 吧 — 2 秒钟，却是对所有插件作者最大的支持。**
-> 先收藏，下次少找一次。你的 ⭐ 也是社区持续整理这份目录的动力。目前 **23 → 100 颗星是第一里程碑（还差 77）**。想接收仓库动态，请在 GitHub 的 Watch 菜单中选择通知类型。
+> 先收藏，下次少找一次。你的 ⭐ 也是社区持续整理这份目录的动力。目前 **26 → 100 颗星是第一里程碑（还差 74）**。想接收仓库动态，请在 GitHub 的 Watch 菜单中选择通知类型。
 >
 > **把好项目分享出去：** 你做/喜欢的插件在列表里？分享原始仓库，让更多人有机会发现它。[一键分享到 X](https://twitter.com/intent/tweet?text=Awesome%20DeepSeek%20Harness%20%E2%80%94%20%E4%B8%87%E7%89%A9%E7%9A%86%E5%8F%AF%E6%8F%92%E4%BB%B6%20%E2%9A%A1%20%E7%B2%BE%E9%80%89%20dsh%20%E6%8F%92%E4%BB%B6%E3%80%81%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E8%83%BD&url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&hashtags=dsh,deepseek) · [分享到 Reddit](https://www.reddit.com/submit?url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&title=Awesome%20DeepSeek%20Harness%20%E2%80%94%20%E4%B8%87%E7%89%A9%E7%9A%86%E5%8F%AF%E6%8F%92%E4%BB%B6%E7%B2%BE%E9%80%89) · [去 Discord 讨论](https://discord.gg/Ycq5dCaS4) · [复制链接](https://github.com/awesome-deepseekharness/awesome-deepseek-harness)
 >
@@ -102,7 +102,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 
 | 项目 | 说明 | ⭐ |
 | --- | --- | --- |
-| [zhu1090093659/dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui) | DSH Web UI 插件与皮肤合集:任务看板、git 图、右侧面板、移动端 UI、宠物、实时 token 统计、皮肤中心 | 7558 |
+| [zhu1090093659/dsh-web](https://github.com/zhu1090093659/dsh-web) | DSH Web UI 插件与皮肤合集:任务看板、git 图、右侧面板、移动端 UI、宠物、实时 token 统计、皮肤中心 | 9270 |
 | [Small-tailqwq/dsh-deep-whale](https://github.com/Small-tailqwq/dsh-deep-whale) | DSH Web「鲸鱼娘」皮肤系列(深海女仆工坊) | 2077 |
 | [vlln/whale-girl](https://github.com/vlln/whale-girl) | DSH Web GUI 桌面宠物插件(QQ 宠物形态):可拖拽/投喂/玩耍 | 322 |
 | [omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) | 侧边栏完整工作台:文件渲染编辑/终端/Git/子代理,支持三方扩展页面 | 3593 |
@@ -126,7 +126,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [ccch1mneyyy/dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | Claude Code 风格全屏交互终端插件:像素鲸鱼顶栏、思考流式展开、双击 Esc 回滚、TPS 仪表 | 3030 |
 | [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) | 手机远程访问 Web 界面：扫码直连局域网/公网隧道，实时同屏、移动端适配 | 1123 |
 | [huiliyi37/dsh-tianshu-tui](https://github.com/huiliyi37/dsh-tianshu-tui) | 交互式终端 UI + harness 工作流:增加 TDD、证据门、视觉图像模块 | 276 |
-| [anywhere-labs/deepseek-harness-desktop](https://github.com/anywhere-labs/deepseek-harness-desktop) | 为 DSH 生态打造的现代化桌面端体验 | 26457 |
+| [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop) | 为 DSH 生态打造的现代化桌面端体验 | 32280 |
 | [hust-open-atom-club/oh-dsh](https://github.com/hust-open-atom-club/oh-dsh) | DSH 社区发行版:TUI、桌面端与 Web UI 三种形态统一,分层安装 | 315 |
 | [vibeinging/deepseek-harness-desktop-app](https://github.com/vibeinging/deepseek-harness-desktop-app) | 本地 AI 桌面工作区:Sessions、项目、文件、网页研究、插件、Office 工件 | 584 |
 | [ChisaAlter/Deepseek-Harness-Desktop](https://github.com/ChisaAlter/Deepseek-Harness-Desktop) | DSH Web UI 的 Electron 桌面壳,支持主题与背景图 | 164 |
@@ -191,6 +191,11 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [ff66ccff/dsh-ATN](https://github.com/ff66ccff/dsh-ATN) | 面向 DeepSeek Harness 的自适应拓扑多智能体预设，提供点对点通信、共享白板、任务交接和实时网络可视化。 Install: `dsh plugin --profile web add dsh-atn@0.4.1`. | 2 |
 | [lcestou/dsh-oh-my-claude](https://github.com/lcestou/dsh-oh-my-claude) | 把已登录的 Claude Code CLI 作为 dsh 原生模型提供方，用订阅额度干活、无需 API key：实时模型列表、按会话恢复、审批中转、图片、记忆/回退/变更面板，以及远程 SSH 主机上的工作区。`dsh plugin --profile web add dsh-oh-my-claude` | 10 |
 | [luobosibing2/dsh-jev-plugin](https://github.com/luobosibing2/dsh-jev-plugin) | 原生 DSH 插件：TypeSafe Jev 决策层负责技能/文件筛选、任务监督、工具输出过滤与审批辅助——12 项功能独立配置、默认全部关闭（经 DSH Web 插件管理器用 GitHub 地址安装） | 203 |
+| [klarkxy/dsh-plugins#dsh-dev-index](https://github.com/klarkxy/dsh-plugins/tree/main/plugins/dsh-dev-index) | 在 DSH 插件页阅读官方文档；创造模式检索文档、查询插件 npm 元数据。安装：`dsh plugin --profile web add @klarkxy/dsh-dev-index`。 | 7 |
+| [lo2589/deepseek-harness-media](https://github.com/lo2589/deepseek-harness-media) | DSH 网页版输入框旁的一排按钮：不改 YAML 切换模型提供方（GLM、MiniMax、OpenAI、Claude、本地 Ollama），截图，上传图片/SVG/文本文件，把图片交给视觉模型读，另有会话媒体面板和历史搜索。安装：`dsh plugin --profile web add file:./dsh-provider-quick-config`。 | 4 |
+| [skyjjgw/dsh-version-guard](https://github.com/skyjjgw/dsh-version-guard) | 记录插件版本与 profile 配置快照，在 DSH 无法启动时通过独立恢复页回退到已知可用配置。 | 1 |
+| [weibaohui/dsh-favorites](https://github.com/weibaohui/dsh-favorites) | 会话收藏夹：把任意会话收藏进浏览器收藏夹式的管理面板——左侧会话行一键收藏/星标，主面板支持文件夹分门别类、备注、自定义显示名、一键继续会话、Fork 新会话、会话基本统计，外加一张清晰展示会话派生关系的 fork 关系图。`dsh plugin add @weibaohui/dsh-favorites` 即装 | 1 |
+| [JeffTsuiCUG/dsh-connect-minimaxcode](https://github.com/JeffTsuiCUG/dsh-connect-minimaxcode) | 把本机已登录的 MiniMax Code 桌面 App（国内版）接入 DSH，也可用插件自带的 OAuth 2.0 设备码登录（PKCE，插件不接触密码）：Anthropic Messages 兼容、模型目录实时拉取、每日签到，积分余额与到期信息跟随所选模型显示在输入框工具行，并保留在插件页面。非官方插件，依赖 MiniMax 客户端的非公开接口，仅供学习研究。安装：`dsh plugin --profile desktop add dsh-connect-minimaxcode` | 0 |
 
 ### 📚 Skills 与技能包
 
@@ -201,7 +206,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [hyhmrright/brooks-lint](https://github.com/hyhmrright/brooks-lint) | 以 12 本经典工程书为基础的 AI 代码审查:衰减风险诊断、6 种分析模式 | 1474 |
 | [GanyuanRan/Aegis](https://github.com/GanyuanRan/Aegis) | 让编码 agent 具备架构意识:基线优先、证据验证、漂移检查 | 1185 |
 | [superdesigndev/superdesign-skill](https://github.com/superdesigndev/superdesign-skill) | 设计技能:告别 AI-slop UI,产出可交付的精致前端 | 556 |
-| [yogsoth-ai/de-anthropocentric-research-engine](https://github.com/yogsoth-ai/de-anthropocentric-research-engine) | 900+ 纯 markdown 研究技能:4 层层级、9 个自由组合包、6 个 MCP 集成 | 470 |
+| [yogsoth-ai/de-anthropocentric-research-engine](https://github.com/yogsoth-ai/de-anthropocentric-research-engine) | 面向 agent 的研究引擎：给定方向后自行完成文献综合、空白验证、假设形成与实验设计；执行前先审批计划，证据不足时退回文献；纯 markdown | 505 |
 | [Minara-AI/minara-skills](https://github.com/Minara-AI/minara-skills) | 交易技能包:让 agent 帮你赚钱 | 345 |
 | [linhay/harmony-next.skills](https://github.com/linhay/harmony-next.skills) | HarmonyOS NEXT (API 12+) 开发专家指导 | 347 |
 | [alaliqing/claude-paper](https://github.com/alaliqing/claude-paper) | 跨 agent 论文工具:快速摘要、深度学习材料、代码演示、本地阅读器 | 336 |
@@ -229,6 +234,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [JingbiaoMei/Tokdash](https://github.com/JingbiaoMei/Tokdash) | Sessions 与配额的可视化分析:热力图、成本追踪 | 72 |
 | [EthanYoQ/Invoice-Downloader](https://github.com/EthanYoQ/Invoice-Downloader) | 用于本地 IMAP 发票下载、OCR 识别、归档和 Excel 报销汇总的 DSH bundle | 415 |
 | [SuperJJ007/papermachine](https://github.com/SuperJJ007/papermachine) | 基于 DeepSeek Harness 的桌面数据分析应用，在本机运行 Python 和 R，支持检查执行步骤及追溯图表和表格的来源。 | 59 |
+| [pavel-logachev/dsh-mobile](https://github.com/pavel-logachev/dsh-mobile) | DSH 原生 Android 应用 + 宿主插件：手机查看所有项目会话、发送照片/文件、引导智能体、回答其提问；扫码配对，Wi-Fi/Tailscale，无需云端 | 1 |
 
 ---
 
