@@ -1,8 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { EventEmitter } from 'node:events';
-import { approvalGatedAgent, parseModels, rankFreeModels, responseText, runModel, probeModel, withFreeModel } from './opencode-free.mjs';
+import { approvalGatedAgent, zenModelRecords, rankFreeModels, responseText, runModel, probeModel, runKiloModel, isKiloFreeModelId, rankKiloFreeModels, discoverKiloFreeModels, probeKiloModel, opencodeRail, kiloRail, withFreeModel } from './opencode-free.mjs';
 import { parseDecision } from './opencode-auto.mjs';
 import { classifierConfig, isPluginTopicInvalid, runGhRead, validateGhReadEndpoint } from './curate.mjs';
 
@@ -12,12 +13,27 @@ const model = (id, overrides = {}) => ({
   capabilities: { toolcall: true, input: { text: true }, output: { text: true }, reasoning: true },
   limit: { context: 200000 }, ...overrides,
 });
-test('parses actual CLI verbose framing, CRLF and refresh banners', () => {
-  const output = '\x1b[92mModels cache refreshed\x1b[0m\r\n'
-    + 'opencode/new-model\r\n' + JSON.stringify(model('new-model'), null, 2) + '\r\n'
-    + 'opencode/bad-record\r\ninvalid JSON\r\n'
-    + 'opencode/another\n' + JSON.stringify(model('another'));
-  assert.deepEqual(parseModels(output).map(m => m.fullID), ['opencode/new-model', 'opencode/another']);
+test('maps Zen catalog records; a missing price is never free', () => {
+  const free = {
+    id: 'deepseek-v4.1-flash-free', release_date: '2026-09-10',
+    modalities: { input: ['text', 'image/png'], output: ['text'] },
+    capabilities: { tools: { supported: true }, reasoning: { supported: true } },
+    limit: { context: 200000 },
+    cost: { text: { input: { price: 0, cache: { read: 0 } }, output: { price: 0 } } },
+  };
+  const paid = { ...free, id: 'paid-model', cost: { text: { input: { price: 1 }, output: { price: 0 } } } };
+  const unmapped = { ...free, id: 'no-price-model', cost: undefined };
+  const records = zenModelRecords([free, paid, unmapped, { nope: true }]);
+  assert.equal(records.length, 3);
+  assert.deepEqual(records[0], {
+    fullID: 'opencode/deepseek-v4.1-flash-free', release_date: '2026-09-10', status: 'active',
+    cost: { input: 0, output: 0, cache: { read: 0, write: 0 } },
+    capabilities: {
+      toolcall: true, input: { text: true }, output: { text: true }, reasoning: true,
+    },
+    limit: { context: 200000 },
+  });
+  assert.deepEqual(rankFreeModels(records).map(m => m.fullID), ['opencode/deepseek-v4.1-flash-free']);
 });
 test('requires zero pricing and tool/text capability, not a free-looking name', () => {
   const input = [model('plain-name'), model('paid-free', { cost: { input: 1, output: 0 } }),
@@ -98,7 +114,7 @@ test('headless runner never auto-approves tools and pins both models', async () 
     agent: 'probe', cwd: 'test-directory', timeoutMs: 1234,
     config: { model: 'paid/ignored', small_model: 'paid/ignored', permission: { '*': 'ask' } },
     cli: async (args, options) => {
-      assert.deepEqual(args, ['run', '--dir', 'test-directory', '--format', 'json', '--model', 'opencode/selected-free', '--agent', 'probe', 'quoted "prompt" & literal']);
+      assert.deepEqual(args, ['run', '--format', 'json', '--model', 'opencode/selected-free', '--agent', 'probe', 'quoted "prompt" & literal']);
       assert.equal(options.cwd, 'test-directory');
       assert.equal(options.timeoutMs, 1234);
       assert.deepEqual(JSON.parse(options.env.OPENCODE_CONFIG_CONTENT), {
@@ -122,6 +138,11 @@ test('probe keeps tools approval-gated, uses the selected model, caches success 
     assert.deepEqual(options.config.agent.probe.permission, { '*': 'ask' });
     directory = options.cwd;
     assert.equal(existsSync(directory), true);
+    // v2 needs the agent as a file inside the run's project directory.
+    const agentFile = join(directory, '.opencode', 'agents', 'probe.md');
+    const source = readFileSync(agentFile, 'utf8');
+    assert.match(source, /permissions:/);
+    assert.match(source, /effect: ask/);
     return 'OPENCODE_FREE_OK';
   };
   await probeModel('opencode/test-probe-success', 1234, { run });
@@ -222,6 +243,116 @@ test('budget exhaustion stops before another task and never chooses a paid fallb
   await assert.rejects(withFreeModel(async () => {}, { discover: async () => [], failures: new Set() }), /No free model/);
 });
 
+
+test('kilo free-model ids accept only the auto-router, the free alias and :free entries', () => {
+  assert.equal(isKiloFreeModelId('kilo/kilo-auto/free'), true);
+  assert.equal(isKiloFreeModelId('kilo/openrouter/free'), true);
+  assert.equal(isKiloFreeModelId('kilo/nvidia/nemotron-3.5-lightning:free'), true);
+  assert.equal(isKiloFreeModelId('kilo/google/gemini-pro-latest'), false);
+  assert.equal(isKiloFreeModelId('opencode/deepseek-v4.1-flash-free'), false);
+  assert.equal(isKiloFreeModelId('kilo/cohere/north:fre'), false);
+});
+
+test('kilo candidates rank the auto-router first and keep catalog order after it', () => {
+  const ranked = rankKiloFreeModels([
+    'kilo/recursive/flint-v1.0:free', 'kilo/kilo-auto/free', 'kilo/google/gemini-pro-latest',
+    'kilo/kilo-auto/free', 'kilo/nvidia/nemotron-3.5-lightning:free',
+  ]);
+  assert.deepEqual(ranked, ['kilo/kilo-auto/free', 'kilo/recursive/flint-v1.0:free', 'kilo/nvidia/nemotron-3.5-lightning:free']);
+});
+
+test('runKiloModel routes through the kilo binary and injects the approval-gated agent', async () => {
+  const calls = [];
+  await runKiloModel('kilo/kilo-auto/free', 'quoted "prompt" & literal', {
+    agent: 'probe',
+    cli: async (args, options) => {
+      calls.push({ args, options });
+      return { out: JSON.stringify({ type: 'text', part: { text: 'ok' } }) + '\n' };
+    },
+  });
+  assert.equal(calls.length, 1);
+  const { args, options } = calls[0];
+  assert.equal(args[0], 'run');
+  assert.equal(args[1], '--format');
+  assert.equal(args[4], 'kilo/kilo-auto/free');
+  assert.equal(args[5], '--agent');
+  assert.equal(args[7], 'quoted "prompt" & literal');
+  const config = JSON.parse(options.env.KILO_CONFIG_CONTENT);
+  assert.equal(config.model, 'kilo/kilo-auto/free');
+  assert.equal(config.small_model, 'kilo/kilo-auto/free');
+  assert.equal(config.agent.probe.mode, 'primary');
+  assert.equal(config.agent.probe.permission['*'], 'ask');
+});
+
+test('runKiloModel keeps a caller-provided agent definition intact', async () => {
+  let config;
+  await runKiloModel('kilo/kilo-auto/free', 'hi', {
+    agent: 'classifier',
+    config: approvalGatedAgent('classifier', { prompt: 'own prompt' }),
+    cli: async (args, options) => {
+      config = JSON.parse(options.env.KILO_CONFIG_CONTENT);
+      return { out: JSON.stringify({ type: 'text', part: { text: 'ok' } }) + '\n' };
+    },
+  });
+  assert.equal(config.agent.classifier.prompt, 'own prompt');
+  assert.equal(config.agent.probe, undefined);
+});
+
+test('kilo discovery lists free candidates from the CLI catalog', async () => {
+  const models = await discoverKiloFreeModels({ cli: async () => ({ out: [
+    'kilo/recursive/flint-v1.0:free', 'kilo/kilo-auto/free', 'kilo/google/gemini-pro-latest', '',
+  ].join('\n') }) });
+  assert.equal(models[0].fullID, 'kilo/kilo-auto/free');
+  assert.deepEqual(models.map(model => model.fullID),
+    ['kilo/kilo-auto/free', 'kilo/recursive/flint-v1.0:free']);
+  assert.ok(models.every(model => isKiloFreeModelId(model.fullID)));
+});
+
+test('probeKiloModel demands the exact free-tier handshake token', async () => {
+  let probeCalls = 0;
+  await probeKiloModel('kilo/kilo-auto/free', 5000, { run: async () => { probeCalls++; return 'KILO_FREE_OK'; } });
+  await probeKiloModel('kilo/kilo-auto/free', 5000, { run: async () => { probeCalls++; return 'KILO_FREE_OK'; } });
+  assert.equal(probeCalls, 1); // the second probe reuses the verified model
+  await assert.rejects(probeKiloModel('kilo/recursive/flint-v1.0:free', 5000, {
+    run: async () => 'KILO_FREE_OK-ish',
+  }), /expected response/);
+});
+
+test('withFreeModel falls through from an exhausted OpenCode rail to the Kilo rail', async () => {
+  const seen = [];
+  const result = await withFreeModel(async (model, timeoutMs, run) => {
+    seen.push(`${model}:${run === undefined}`);
+    return 'done';
+  }, {
+    rails: [
+      { name: 'opencode', discover: async () => [model('a')], probe: async () => { throw new Error('Free usage limit reached'); }, failures: new Set() },
+      { name: 'kilo', discover: async () => [{ fullID: 'kilo/kilo-auto/free' }], probe: async () => {}, run: async (model) => { seen.push(`kilo-run:${model}`); return 'kilo text'; }, failures: new Set() },
+    ],
+    sleep: async () => {},
+  });
+  assert.equal(result.model, 'kilo/kilo-auto/free');
+  assert.equal(result.result, 'done');
+  assert.deepEqual(seen, ['kilo/kilo-auto/free:false']);
+});
+
+test('a failing Kilo rail surfaces as one budget error, never a paid fallback', async () => {
+  await assert.rejects(withFreeModel(async () => {}, {
+    rails: [
+      { name: 'opencode', discover: async () => [], failures: new Set() },
+      { name: 'kilo', discover: async () => { throw new Error('Kilo model listing unavailable: boom'); }, failures: new Set() },
+    ],
+  }), /No free model completed the task within budget: Kilo model listing unavailable: boom/);
+});
+
+test('the default rails are OpenCode first, then Kilo, each with its own runner', () => {
+  const opencode = opencodeRail();
+  const kilo = kiloRail();
+  assert.equal(opencode.name, 'opencode');
+  assert.equal(kilo.name, 'kilo');
+  assert.notEqual(opencode.run, kilo.run);
+  assert.notEqual(opencode.failures, kilo.failures);
+});
+
 function fakeChild({ code = 0, stdout = '', stderr = '' } = {}) {
   const child = new EventEmitter();
   child.stdout = new EventEmitter();
@@ -276,4 +407,36 @@ test('gh-read surfaces gh failures without writing anything', async () => {
   await assert.rejects(runGhRead('repos/o/r', {
     spawnFn: () => fakeChild({ code: 1, stderr: 'HTTP 404: Not Found' }),
   }), /gh api GET failed \(1\): HTTP 404: Not Found/);
+});
+
+test('a quota failure retries the same candidate once after a gap before moving on', async () => {
+  const sleeps = [];
+  const probeCalls = [];
+  const result = await withFreeModel(async (model) => {
+    return 'done via retry';
+  }, {
+    rails: [
+      { name: 'opencode', discover: async () => [model('a'), model('b')],
+        probe: async (id) => {
+          probeCalls.push(id);
+          if (probeCalls.length === 1) throw new Error('Free usage limit reached');
+        }, failures: new Set() },
+    ],
+    sleep: (ms) => { sleeps.push(ms); return Promise.resolve(); },
+  });
+  assert.equal(result.model, 'opencode/a');
+  assert.deepEqual(probeCalls, ['opencode/a', 'opencode/a']);
+  assert.deepEqual(sleeps, [90000]);
+});
+
+test('a quota retry that keeps failing is marked failed and the next candidate runs', async () => {
+  const failures = new Set();
+  await assert.rejects(withFreeModel(async () => {}, {
+    rails: [
+      { name: 'opencode', discover: async () => [model('a'), model('b')],
+        probe: async () => { throw new Error('Provider error'); }, failures },
+    ],
+    sleep: async () => {},
+  }), /No free model completed the task within budget: Provider error/);
+  assert.deepEqual([...failures], ['opencode/a', 'opencode/b']);
 });

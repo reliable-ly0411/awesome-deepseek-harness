@@ -19,7 +19,7 @@
   "starCountNote": "Project star counts are README snapshots, not live counts. Verify installation and compatibility in the linked upstream repository.",
   "repositoryStars": 39,
   "firstStarGoal": 100,
-  "total": 152,
+  "total": 167,
   "groups": [
     {
       "id": "MKT",
@@ -51,11 +51,11 @@
           "zhDesc": "帮 DSH 搜索、安装并验证插件的 Skill"
         },
         {
-          "name": "AdamPlatin123/awesome-dsh-plugins",
-          "url": "https://github.com/AdamPlatin123/awesome-dsh-plugins",
+          "name": "AdamPlatin123/dsh-plugin-radar",
+          "url": "https://github.com/AdamPlatin123/dsh-plugin-radar",
           "desc": "Radar index repo that auto-scans dsh plugin candidates",
-          "stars": 1466,
-          "zhName": "AdamPlatin123/awesome-dsh-plugins",
+          "stars": 1492,
+          "zhName": "AdamPlatin123/dsh-plugin-radar",
           "zhDesc": "自动扫描 dsh 插件候选的前部索引仓库(Radar)"
         },
         {
@@ -260,9 +260,33 @@
           "stars": 64,
           "zhName": "Sev7eEn7/dsh-sieve",
           "zhDesc": "为 DSH 0.2.1-alpha.1 过滤工具输出、裁剪陈旧上下文并按需披露技能。 安装：`dsh plugin --profile headless add dsh-sieve@0.1.0`。"
+        },
+        {
+          "name": "lo2589/knowledge_database",
+          "url": "https://github.com/lo2589/knowledge_database",
+          "desc": "Click a sentence in a chat to make it a card in a knowledge-tree sidebar tab; Ctrl-drag merges several sentences into one card, every card links back to its source sentence, and the tree exports to Markdown, Mermaid, JSON, or PDF. Needs the repo's Python 3.11 + FastNode setup (`setup.sh`). Install: `./setup.sh` then `./dsh-install.sh`.",
+          "stars": 0,
+          "zhName": "lo2589/knowledge_database",
+          "zhDesc": "在对话里点一句就成为右栏知识树里的一张卡；Ctrl 拖框把多句合成一张卡，每张卡都能跳回原句，整棵树可导出 Markdown、Mermaid、JSON、PDF。需先按仓库说明跑 `setup.sh`（Python 3.11 + FastNode）。安装：`./setup.sh` 后跑 `./dsh-install.sh`。"
+        },
+        {
+          "name": "OakcoderX/solopup-memory",
+          "url": "https://github.com/OakcoderX/solopup-memory",
+          "desc": "MIT public-beta text memory for DSH with original-source references, project scopes and correction history; `dsh plugin --profile desktop add solopup-memory@0.21.0-beta.2 --ignore-scripts`",
+          "stars": 1,
+          "zhName": "OakcoderX/solopup-memory",
+          "zhDesc": "面向DSH的MIT文字记忆公开测试版，保留原话来源、项目范围与修订历史；`dsh plugin --profile desktop add solopup-memory@0.21.0-beta.2 --ignore-scripts`"
+        },
+        {
+          "name": "dongsheng123132/task-passport",
+          "url": "https://github.com/dongsheng123132/task-passport",
+          "desc": "Durable task passport + offline TaskPack handoff: versioned local task state, packed into a single offline file another harness or machine can land, with machine-level facts downgraded at pack time; install via `dsh plugin --profile web add task-passport@0.3.2`",
+          "stars": 10,
+          "zhName": "dongsheng123132/task-passport",
+          "zhDesc": "任务状态护照 + 离线 TaskPack 交接：有版本的任务状态留在本地，交接时打包成单文件离线包，另一台机器或另一个 harness 直接落地，机器级事实在打包时降级为未证；安装 `dsh plugin --profile web add task-passport@0.3.2`"
         }
       ],
-      "count": 12,
+      "count": 15,
       "prefix": "U4"
     },
     {
@@ -391,15 +415,31 @@
           "zhDesc": "烟花庆祝引擎：agent 编程时在对话窗口上空放烟花（开场/回合/工具/里程碑/收工/失败各成卡组），token 用量决定大小与绚烂程度；`dsh plugin add @weibaohui/dsh-fireworks` 即装"
         },
         {
+          "name": "weibaohui/dsh-sidebar-tidy",
+          "url": "https://github.com/weibaohui/dsh-sidebar-tidy",
+          "desc": "Sidebar tidy: when plugins pile up, the rows under 'New session' get crowded with panel and plugin entries. This plugin folds them all — global panel rows, plugin-injected entry rows (own and third-party alike), and bottom entries — into a single menu button whose secondary menu triggers each entry exactly as before; keep any entry permanently visible with a name whitelist, and the button turns into an icon when the sidebar collapses to a narrow rail. Installable via `dsh plugin add @weibaohui/dsh-sidebar-tidy`",
+          "stars": 0,
+          "zhName": "12we21/cute-fat-fish-pet",
+          "zhDesc": "DSH Web UI 的 Q 版蓝发小女仆桌宠：106 个手绘透明动画、桌面漫步、本地 Ollama 或 DSH 在线模型陪聊，可选看屏幕吐槽（`dsh plugin add github:12we21/cute-fat-fish-pet#path:/src` 即装）"
+        },
+        {
           "name": "12we21/cute-fat-fish-pet",
           "url": "https://github.com/12we21/cute-fat-fish-pet",
           "desc": "A chibi blue-haired maid desktop pet for the DSH Web UI with 106 hand-drawn transparent animations, desktop wandering, chat through local Ollama or the DSH online models, and optional screen watching (installable via `dsh plugin add github:12we21/cute-fat-fish-pet#path:/src`)",
           "stars": 1,
-          "zhName": "12we21/cute-fat-fish-pet",
-          "zhDesc": "DSH Web UI 的 Q 版蓝发小女仆桌宠：106 个手绘透明动画、桌面漫步、本地 Ollama 或 DSH 在线模型陪聊，可选看屏幕吐槽（`dsh plugin add github:12we21/cute-fat-fish-pet#path:/src` 即装）"
+          "zhName": "VictorKozachek/dsh-user-code-block",
+          "zhDesc": "DSH 用户消息中的代码块：语法高亮、复制按钮与单色模式，`dsh plugin --profile desktop add dsh-user-code-block` 即装"
+        },
+        {
+          "name": "VictorKozachek/dsh-user-code-block",
+          "url": "https://github.com/VictorKozachek/dsh-user-code-block",
+          "desc": "Syntax highlighting, copy button and monochrome mode for fenced code blocks in DSH user messages — the chat renders them as plain text by default; installable via `dsh plugin --profile desktop add dsh-user-code-block`",
+          "stars": 1,
+          "zhName": "weibaohui/dsh-sidebar-tidy",
+          "zhDesc": "侧栏收纳：把「新会话」下方被各插件塞满的入口行——全局面板行、插件入口行（自家/第三方一律识别）、底部入口——统统收进一个菜单按钮，点开二级菜单原样触发各入口；想常驻的加名称白名单即可，侧栏折叠成窄轨时按钮自动变纯图标。`dsh plugin add @weibaohui/dsh-sidebar-tidy` 即装"
         }
       ],
-      "count": 16,
+      "count": 18,
       "prefix": "U5"
     },
     {
@@ -456,11 +496,11 @@
           "zhDesc": "本地 AI 桌面工作区:Sessions、项目、文件、网页研究、插件、Office 工件"
         },
         {
-          "name": "ChisaAlter/Deepseek-Harness-Desktop",
-          "url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop",
+          "name": "ChisaAlter/WhaleIsle",
+          "url": "https://github.com/ChisaAlter/WhaleIsle",
           "desc": "Electron desktop shell for the DSH web UI, with themes & backgrounds",
-          "stars": 164,
-          "zhName": "ChisaAlter/Deepseek-Harness-Desktop",
+          "stars": 200,
+          "zhName": "ChisaAlter/WhaleIsle",
           "zhDesc": "DSH Web UI 的 Electron 桌面壳,支持主题与背景图"
         },
         {
@@ -488,6 +528,14 @@
       "title": "Tools, Workflows & Presets",
       "zhTitle": "工具、工作流与预设",
       "items": [
+        {
+          "name": "dryw/dsh-egm",
+          "url": "https://github.com/dryw/dsh-egm",
+          "desc": "Elephant-Goldfish Model for DSH: draft design specs with a context-rich Elephant, then challenge them with fresh, read-only Goldfish reviewers. Install: `dsh plugin --profile web add dsh-egm` (npm: `dsh-egm`).",
+          "stars": 6,
+          "zhName": "dryw/dsh-egm",
+          "zhDesc": "面向 DSH 的 Elephant-Goldfish Model：由具备项目上下文的 Elephant 起草设计规范，再由全新上下文、只读权限的 Goldfish 审查设计。安装：`dsh plugin --profile web add dsh-egm`（npm：`dsh-egm`）。"
+        },
         {
           "name": "Q00/ouroboros",
           "url": "https://github.com/Q00/ouroboros/tree/main/integrations/dsh-plugin",
@@ -561,6 +609,14 @@
           "zhDesc": "把 DSH 一次性多 Agent 调度升级为可生成/保存/治理/观察/恢复的 Workflow 层"
         },
         {
+          "name": "jerryxff26-alt/delivery-board",
+          "url": "https://github.com/jerryxff26-alt/delivery-board",
+          "desc": "In-repo delivery board for humans & agents: stages, handoffs, soft WIP, weekly report, Timeline UI; DSH plugin + standalone `npx dsh-delivery-board`",
+          "stars": 3,
+          "zhName": "jerryxff26-alt/delivery-board",
+          "zhDesc": "仓内交付看板（人与 Agent 共用）：阶段流水线、交接留痕、软 WIP、客户周报、Timeline；DSH 插件 + 独立 `npx dsh-delivery-board`"
+        },
+        {
           "name": "liceses/dsh-gitbash-preset",
           "url": "https://github.com/liceses/dsh-gitbash-preset",
           "desc": "One-click \"Minimal (Git Bash)\" preset so Minimal mode works on Windows",
@@ -591,6 +647,14 @@
           "stars": 84,
           "zhName": "omdsh-dev/dsh-notification",
           "zhDesc": "回合完成桌面通知,支持按结果类型与关键词规则"
+        },
+        {
+          "name": "radres/dsh-plugin-call-me",
+          "url": "https://github.com/radres/dsh-plugin-call-me",
+          "desc": "Rings your real phone: `call_me` and `text_me` tools, plus optional calls when a run stops or waits for approval; the spoken answer is transcribed back into the run. Needs the paid /call-me app (iPhone, Android). Install: `dsh plugin --profile web add github:radres/dsh-plugin-call-me`",
+          "stars": 8,
+          "zhName": "radres/dsh-plugin-call-me",
+          "zhDesc": "给你的真实手机打电话：`call_me` / `text_me` 工具，另可在运行结束或等待审批时来电，口头回答转写后回到会话。需要付费的 /call-me 手机应用（iPhone、Android）。安装：`dsh plugin --profile web add github:radres/dsh-plugin-call-me`"
         },
         {
           "name": "pitetow/dsh-notify-on-complete",
@@ -849,6 +913,14 @@
           "zhDesc": "阿里云 OpenAPI MCP 连接：通过官方 OpenAPI MCP 代理的静态凭据模式，以 mcp__aliyun__* 暴露 ECS / OSS / DNS / 函数计算等 API。"
         },
         {
+          "name": "hanshengcc/callai-seo-mcp",
+          "url": "https://github.com/hanshengcc/callai-seo-mcp",
+          "desc": "Live SEO data for DSH via the CallAI MCP server: Google/Bing SERP (with AI Overview sources), keyword volume and difficulty, competitor rankings and keyword gaps, backlinks, on-page audits as mcp__callai__* tools plus a bundled SEO skill; pay-as-you-go API key required (`dsh plugin --profile web add @callaiapi/seo`)",
+          "stars": 0,
+          "zhName": "hanshengcc/callai-seo-mcp",
+          "zhDesc": "通过 CallAI MCP 服务器为 DSH 提供实时 SEO 数据：Google/Bing SERP（含 AI Overview 引用源）、关键词搜索量与难度、竞品排名与关键词差距、外链、页面体检，以 mcp__callai__* 暴露并附带 SEO 技能；需按量计费的 API key（`dsh plugin --profile web add @callaiapi/seo`）"
+        },
+        {
           "name": "weibaohui/dsh-flow",
           "url": "https://github.com/weibaohui/dsh-flow",
           "desc": "Execution flow chart: renders the session execution as a vertical node flow (turns / user / assistant / tools / approvals / retries / compaction), appended in real time over SSE with auto-follow scrolling; installable via `dsh plugin add @weibaohui/dsh-flow`",
@@ -959,9 +1031,49 @@
           "stars": 0,
           "zhName": "JeffTsuiCUG/dsh-connect-minimaxcode",
           "zhDesc": "把本机已登录的 MiniMax Code 桌面 App（国内版）接入 DSH，也可用插件自带的 OAuth 2.0 设备码登录（PKCE，插件不接触密码）：Anthropic Messages 兼容、模型目录实时拉取、每日签到，积分余额与到期信息跟随所选模型显示在输入框工具行，并保留在插件页面。非官方插件，依赖 MiniMax 客户端的非公开接口，仅供学习研究。安装：`dsh plugin --profile desktop add dsh-connect-minimaxcode`"
+        },
+        {
+          "name": "caishengshuo/beforewrite",
+          "url": "https://github.com/caishengshuo/beforewrite",
+          "desc": "Host plugin that keeps the previous version of a file the agent is about to overwrite: `time_machine` lists, diffs and restores in one command, and you can mark a file manually before `rm` or `sed -i`. Install: `git clone` then `plugin_manager(action=\"install_bundle\", target=\"<path>\")`",
+          "stars": 1,
+          "zhName": "caishengshuo/beforewrite",
+          "zhDesc": "Host 插件：在 agent 覆盖文件之前自动留下上一版，`time_machine` 一条命令列出快照、看 diff、回滚，`rm` 或 `sed -i` 之前也能手动打点。安装：`git clone` 后 `plugin_manager(action=\"install_bundle\", target=\"<路径>\")`"
+        },
+        {
+          "name": "01men/ybkkasi",
+          "url": "https://github.com/01men/ybkkasi",
+          "desc": "Asset-governance console for self-hosted AI infrastructure: one ledger for MCP servers, skills, agents, AI apps, model channels and storage, with per-tool permission points, department x agent x skill cost attribution, dependency topology and an append-only audit trail. Mounts as a `web`-profile plugin tree (29 packages, 450 REST routes, 86 MCP tools, MIT). Install: `dsh plugin --profile web add github:01men/ybkkasi`",
+          "stars": 67,
+          "zhName": "01men/ybkkasi",
+          "zhDesc": "自托管 AI 基础设施的资产治理控制台：把 MCP 服务 / Skill / Agent / AI 应用 / 模型渠道 / 存储登记进同一台账，带逐工具权限点、部门 x Agent x Skill 三维成本归因、依赖拓扑与只追加审计日志。以 `web` profile 插件树挂载（29 个插件包、450 条 REST 路由、86 个 MCP 工具，MIT）。安装：`dsh plugin --profile web add github:01men/ybkkasi`"
+        },
+        {
+          "name": "lengrufeng2008/dsh-science-legion",
+          "url": "https://github.com/lengrufeng2008/dsh-science-legion",
+          "desc": "Tiered multi-agent science campaigns for DSH: 8 skills for math/physics/astronomy/engineering/biomedical evidence, shared blackboard, independent verifier, wolf-pack/flanking tactics, token gates, 10 known-answer evals; a six-agent pilot caught and corrected a benchmark answer-key error (`dsh plugin --profile web add github:lengrufeng2008/dsh-science-legion`)",
+          "stars": 0,
+          "zhName": "lengrufeng2008/dsh-science-legion",
+          "zhDesc": "DSH 分层多智能体科研战役：8 个技能覆盖数学/物理/天文/工程/生物医药证据，共享黑板、独立验证、群狼/迂回战术、token 闸门、10 道已知答案评测；6-agent pilot 抓到并修正了评测答案键错误（`dsh plugin --profile web add github:lengrufeng2008/dsh-science-legion`）"
+        },
+        {
+          "name": "lengrufeng2008/dsh-code-intel",
+          "url": "https://github.com/lengrufeng2008/dsh-code-intel",
+          "desc": "Read-only semantic code navigation for DSH via local language servers: definition, references, workspace symbols, diagnostics, hover, rename preview; six native tools, no embeddings/hosted index, 6/6 tests",
+          "stars": 0,
+          "zhName": "lengrufeng2008/dsh-code-intel",
+          "zhDesc": "通过本地 language server 的只读语义代码导航：定义、引用、工作区符号、诊断、hover、rename 预览；6 个原生工具，不用 embedding/托管索引，6/6 测试"
+        },
+        {
+          "name": "jjjjjjjjnnjnn/dsh-triage",
+          "url": "https://github.com/jjjjjjjjnnjnn/dsh-triage",
+          "desc": "Pre-install judgement and post-mortem attribution: says which row admission denied, which module failed to import, which capability was declared but never registered; isolated probe with recorded evidence. Read-only, no install/remove, no security claims",
+          "stars": 1,
+          "zhName": "jjjjjjjjnnjnn/dsh-triage",
+          "zhDesc": "装前判断与事后归因：点名哪一行被准入拒绝、哪个模块 import 失败、哪个能力声明了却从未注册；独立探针带可复算证据。只读，不做装/卸，不作安全背书"
         }
       ],
-      "count": 59,
+      "count": 68,
       "prefix": "U7"
     },
     {
@@ -1096,9 +1208,17 @@
           "stars": 0,
           "zhName": "reliable-ly0411/babeldoc-pdf-translate",
           "zhDesc": "面向 DSH 的 BabelDOC PDF 翻译技能，同时提供 Codex 插件封装：双语输出、自定义术语及本地排版；安装到 `.dsh/skills/babeldoc-pdf-translate`"
+        },
+        {
+          "name": "zabuxie/vc-voice-train-skill",
+          "url": "https://github.com/zabuxie/vc-voice-train-skill",
+          "desc": "RVC voice training skill for DSH: dataset QA, fix for the RVC 20240604 audio_norm defect (silent broadband-noise output), objective acceptance (flat/harmonics/band energy), 40k/32k pipelines, cloud-GPU SOP",
+          "stars": 10,
+          "zhName": "zabuxie/vc-voice-train-skill",
+          "zhDesc": "RVC 音色训练技能：数据集体检、修复 RVC 20240604 归一化缺陷（静默输出宽带噪声）、客观音质验收（平坦度/谐波/频段）、40k/32k 全流程、云 GPU 训练 SOP"
         }
       ],
-      "count": 16,
+      "count": 17,
       "prefix": "U8"
     },
     {

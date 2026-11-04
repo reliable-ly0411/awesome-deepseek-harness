@@ -328,8 +328,8 @@ async function runAutoLabel(pr, issue, livePluginTopic = 'unknown') {
         const hasOpencode = await runCli(['--version']).then(() => true, () => false);
         if (hasOpencode) {
           const prompt = `Classify this PR title/files into one label: plugin, enhancement, bug, documentation, question. Title: "${title}" Files: ${files.join(', ')}. Reply only with the label.`;
-          const { result: llm } = await withFreeModel(async (model, timeoutMs) => {
-            const answer = await runModel(model, prompt.slice(0, 400), { agent: 'classifier', cwd: ROOT, timeoutMs,
+          const { result: llm } = await withFreeModel(async (model, timeoutMs, run) => {
+            const answer = await run(model, prompt.slice(0, 400), { agent: 'classifier', cwd: ROOT, timeoutMs,
               config: classifierConfig() });
             if (!/^(plugin|enhancement|bug|documentation|question)$/i.test(answer.trim())) throw new Error('Invalid label');
             return answer;
@@ -405,10 +405,10 @@ async function runAutoLabel(pr, issue, livePluginTopic = 'unknown') {
 }
 
 async function generateWithTraversal(prompt) {
-  return withFreeModel(async (model, timeoutMs) => {
+  return withFreeModel(async (model, timeoutMs, run) => {
     // A previous attempt's report must never count as this model's success.
     for (const file of [REPORT_FILE, REVIEW_FILE]) fs.rmSync(file, { force: true });
-    await runModel(model, prompt, { agent: 'curator', cwd: ROOT, timeoutMs });
+    await run(model, prompt, { agent: 'curator', cwd: ROOT, timeoutMs });
     if (!fs.existsSync(REPORT_FILE)) throw new Error('No fresh curator-report.md');
     const content = fs.readFileSync(REPORT_FILE, 'utf8');
     if (!/^# (?:curator-report\.md|Curator Report)/im.test(content) || !/^## Sources/im.test(content)) {
@@ -488,7 +488,8 @@ ${issue ? `- Issue #${issue} detected. Suggest labels: plugin suggestion / fix /
 
 function buildDeterministicReviewComment({ pr, issue }) {
   if (!pr) return '';
-  return `Thanks for the contribution to PR #${pr}! 🤖 Curator deterministic fallback — full AI review unavailable, maintainer will follow up. Maintainer: comment \`/curator\` to re-run full review.\n`;
+  return `Thanks for the contribution to PR #${pr}! 🤖 Curator deterministic fallback — full AI review unavailable, maintainer will follow up. Maintainer: comment \`/curator\` to re-run full review.\nIf this list is useful to you, a star helps a lot: https://github.com/awesome-deepseekharness/awesome-deepseek-harness . 如果这个列表对你有帮助，欢迎顺手点个 star，谢谢！
+`;
 }
 async function main() {
   console.log(`[curate] Starting at ${new Date().toISOString()}`);
