@@ -123,6 +123,7 @@ The hottest category — giving text-only models "eyes."
 | [weibaohui/dsh-sidebar-tidy](https://github.com/weibaohui/dsh-sidebar-tidy) | Sidebar tidy: when plugins pile up, the rows under 'New session' get crowded with panel and plugin entries. This plugin folds them all — global panel rows, plugin-injected entry rows (own and third-party alike), and bottom entries — into a single menu button whose secondary menu triggers each entry exactly as before; keep any entry permanently visible with a name whitelist, and the button turns into an icon when the sidebar collapses to a narrow rail. Installable via `dsh plugin add @weibaohui/dsh-sidebar-tidy` | 0 |
 | [12we21/cute-fat-fish-pet](https://github.com/12we21/cute-fat-fish-pet) | A chibi blue-haired maid desktop pet for the DSH Web UI with 106 hand-drawn transparent animations, desktop wandering, chat through local Ollama or the DSH online models, and optional screen watching (installable via `dsh plugin add github:12we21/cute-fat-fish-pet#path:/src`) | 1 |
 | [VictorKozachek/dsh-user-code-block](https://github.com/VictorKozachek/dsh-user-code-block) | Syntax highlighting, copy button and monochrome mode for fenced code blocks in DSH user messages — the chat renders them as plain text by default; installable via `dsh plugin --profile desktop add dsh-user-code-block` | 1 |
+| [mengge237/dsh-composer-ease](https://github.com/mengge237/dsh-composer-ease) | dsh-composer-ease: adds a completion popup to the DSH Web composer, plus bracket and quote pairing and wrap-on-selection; nothing else in the UI changes | 0 |
 ### 🖥️ TUI & Desktop
 
 | Project | Description | ⭐ |
@@ -142,6 +143,7 @@ The hottest category — giving text-only models "eyes."
 | Project | Description | ⭐ |
 | --- | --- | --- |
 | [dryw/dsh-egm](https://github.com/dryw/dsh-egm) | Elephant-Goldfish Model for DSH: draft design specs with a context-rich Elephant, then challenge them with fresh, read-only Goldfish reviewers. Install: `dsh plugin --profile web add dsh-egm` (npm: `dsh-egm`). | 6 |
+| [leoan698-tom/dsh-sessivra](https://github.com/leoan698-tom/dsh-sessivra) | Sessivra: drag DSH sessions into resizable split views, drop native @ references into drafts, and review delegated work before queued follow-ups. Prerelease; Windows / DSH 0.2.1-rc.5. Install: `dsh plugin --profile web add dsh-plugin-sessivra@0.3.0-dev.26`. | 1 |
 | [Q00/ouroboros](https://github.com/Q00/ouroboros/tree/main/integrations/dsh-plugin) | Config-only bundle mounting Ouroboros via MCP: 36 interview/Seed/execution/eval/evolution workflow tools | 5839 |
 | [xmanrui/dsh-im](https://github.com/xmanrui/dsh-im) | 9-channel IM bots for DSH via QR/credentials: Feishu, WeChat, DingTalk, WeCom, QQ, Slack, Telegram, Discord, WhatsApp | 1307 |
 | [zh667/TokenLedger](https://github.com/zh667/TokenLedger) | Sidebar usage panel attributing tokens to relay site (New API/Sub2API/DeepSeek balance), today/month/total + heatmap | 199 |
@@ -209,6 +211,7 @@ The hottest category — giving text-only models "eyes."
 | [lengrufeng2008/dsh-science-legion](https://github.com/lengrufeng2008/dsh-science-legion) | Tiered multi-agent science campaigns for DSH: 8 skills for math/physics/astronomy/engineering/biomedical evidence, shared blackboard, independent verifier, wolf-pack/flanking tactics, token gates, 10 known-answer evals; a six-agent pilot caught and corrected a benchmark answer-key error (`dsh plugin --profile web add github:lengrufeng2008/dsh-science-legion`) | 0 |
 | [lengrufeng2008/dsh-code-intel](https://github.com/lengrufeng2008/dsh-code-intel) | Read-only semantic code navigation for DSH via local language servers: definition, references, workspace symbols, diagnostics, hover, rename preview; six native tools, no embeddings/hosted index, 6/6 tests | 0 |
 | [jjjjjjjjnnjnn/dsh-triage](https://github.com/jjjjjjjjnnjnn/dsh-triage) | Pre-install judgement and post-mortem attribution: says which row admission denied, which module failed to import, which capability was declared but never registered; isolated probe with recorded evidence. Read-only, no install/remove, no security claims | 1 |
+| [tommy00748-tech/dsh-native-notifications](https://github.com/tommy00748-tech/dsh-native-notifications) | Native desktop notifications from DSH itself (approval, question, completion, error, sign-in), attributed to the DSH app with click-to-open, plus a selectable/customisable synthesised chime. Install: `dsh plugin --profile web add github:tommy00748-tech/dsh-native-notifications` | 0 |
 
 ### 📚 Skills
 
@@ -274,6 +277,7 @@ The hottest category — giving text-only models "eyes."
 | [deepseekagent.io guide](https://deepseekagent.io/guides/deepseek-harness) | dsh install & architecture guide (community) | — |
 | [RaulLazaro/dsh-server-setup](https://github.com/RaulLazaro/dsh-server-setup) | Production DSH on VPS: systemd, dsh-proxy plugin, Basic Auth, Pangolin tunnel, 23-plugin stack | 1 |
 | [dseek.app dsh CLI guide](https://dseek.app/cli) | Unofficial dsh cheat sheet: `npx @deepseek-ai/dsh web`, Node.js requirement, headless profile and plugin commands, sourced from the official repo and npm page (community) | — |
+| [DSH Learn](https://dshlearn.com) | English learning site for dsh: getting-started guides, MCP setup, plugin installs, a community extensions directory, and release/news tracking, with sources cited (community) | — |
 
 **Official docs:** [development.md](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/development.md) · [architecture.md](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/architecture.md) · [cordis-primer](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cordis-primer.md) · [cordis-tutorial](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cordis-tutorial/index.md) (7 plugin tutorials) · [cookbook](https://github.com/deepseek-ai/deepseek-harness/tree/master/docs/cookbook) · [capability-seams](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/capability-seams.md)
 

@@ -123,6 +123,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [12we21/cute-fat-fish-pet](https://github.com/12we21/cute-fat-fish-pet) | DSH Web UI 的 Q 版蓝发小女仆桌宠：106 个手绘透明动画、桌面漫步、本地 Ollama 或 DSH 在线模型陪聊，可选看屏幕吐槽（`dsh plugin add github:12we21/cute-fat-fish-pet#path:/src` 即装） | 1 |
 | [VictorKozachek/dsh-user-code-block](https://github.com/VictorKozachek/dsh-user-code-block) | DSH 用户消息中的代码块：语法高亮、复制按钮与单色模式，`dsh plugin --profile desktop add dsh-user-code-block` 即装 | 1 |
 | [weibaohui/dsh-sidebar-tidy](https://github.com/weibaohui/dsh-sidebar-tidy) | 侧栏收纳：把「新会话」下方被各插件塞满的入口行——全局面板行、插件入口行（自家/第三方一律识别）、底部入口——统统收进一个菜单按钮，点开二级菜单原样触发各入口；想常驻的加名称白名单即可，侧栏折叠成窄轨时按钮自动变纯图标。`dsh plugin add @weibaohui/dsh-sidebar-tidy` 即装 | 0 |
+| [mengge237/dsh-composer-ease](https://github.com/mengge237/dsh-composer-ease) | dsh-composer-ease：给 DSH Web 输入框加一个补全提示框，另带括号与引号配对、选中环绕；除此之外不改界面 | 0 |
 
 ### 🖥️ TUI 与桌面端
 
@@ -143,6 +144,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | 项目 | 说明 | ⭐ |
 | --- | --- | --- |
 | [dryw/dsh-egm](https://github.com/dryw/dsh-egm) | 面向 DSH 的 Elephant-Goldfish Model：由具备项目上下文的 Elephant 起草设计规范，再由全新上下文、只读权限的 Goldfish 审查设计。安装：`dsh plugin --profile web add dsh-egm`（npm：`dsh-egm`）。 | 6 |
+| [leoan698-tom/dsh-sessivra](https://github.com/leoan698-tom/dsh-sessivra) | Sessivra：拖拽 DSH 会话自由分屏、调宽，拖入输入框插入原生 @ 引用；收回子会话产物，验收后继续任务。预发布；Windows / DSH 0.2.1-rc.5。安装：`dsh plugin --profile web add dsh-plugin-sessivra@0.3.0-dev.26`。 | 1 |
 | [Q00/ouroboros](https://github.com/Q00/ouroboros/tree/main/integrations/dsh-plugin) | 纯配置包，经 MCP 挂载 Ouroboros，提供 36 个访谈/Seed/执行/评估/演化工作流工具 | 5839 |
 | [xmanrui/dsh-im](https://github.com/xmanrui/dsh-im) | 9 渠道 IM 接入：飞书/微信/钉钉/企微/QQ/Slack/TG/Discord/WhatsApp，扫码或凭据接入 | 1307 |
 | [zh667/TokenLedger](https://github.com/zh667/TokenLedger) | 侧边栏用量面板：按中转站归因 Token，今日/本月/累计+热力图，支持 New API/Sub2API/官方余额 | 199 |
@@ -210,6 +212,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [lengrufeng2008/dsh-science-legion](https://github.com/lengrufeng2008/dsh-science-legion) | DSH 分层多智能体科研战役：8 个技能覆盖数学/物理/天文/工程/生物医药证据，共享黑板、独立验证、群狼/迂回战术、token 闸门、10 道已知答案评测；6-agent pilot 抓到并修正了评测答案键错误（`dsh plugin --profile web add github:lengrufeng2008/dsh-science-legion`） | 0 |
 | [lengrufeng2008/dsh-code-intel](https://github.com/lengrufeng2008/dsh-code-intel) | 通过本地 language server 的只读语义代码导航：定义、引用、工作区符号、诊断、hover、rename 预览；6 个原生工具，不用 embedding/托管索引，6/6 测试 | 0 |
 | [jjjjjjjjnnjnn/dsh-triage](https://github.com/jjjjjjjjnnjnn/dsh-triage) | 装前判断与事后归因：点名哪一行被准入拒绝、哪个模块 import 失败、哪个能力声明了却从未注册；独立探针带可复算证据。只读，不做装/卸，不作安全背书 | 1 |
+| [tommy00748-tech/dsh-native-notifications](https://github.com/tommy00748-tech/dsh-native-notifications) | 由 DSH 自己弹出的原生桌面通知（待授权、等待作答、任务完成、出错、需要登录），归属 DSH 应用、点击回到会话，提示音可选预设或自定义。安装：`dsh plugin --profile web add github:tommy00748-tech/dsh-native-notifications` | 0 |
 
 ### 📚 Skills 与技能包
 
@@ -275,6 +278,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [deepseekagent.io 指南](https://deepseekagent.io/guides/deepseek-harness) | dsh 安装与架构指南(社区) | — |
 | [RaulLazaro/dsh-server-setup](https://github.com/RaulLazaro/dsh-server-setup) | VPS 生产部署:systemd、dsh-proxy 插件、Basic Auth、Pangolin 隧道、23 插件栈 | 1 |
 | [dseek.app dsh CLI 指南](https://dseek.app/cli) | 非官方 dsh 速查：`npx @deepseek-ai/dsh web`、Node.js 版本要求、headless profile 与插件命令，来源为官方仓库与 npm 页面(社区) | — |
+| [DSH Learn](https://dshlearn.com) | 英文 dsh 学习站：入门指南、MCP 配置、插件安装、社区扩展目录，以及版本/新闻跟踪，内容标注来源(社区) | — |
 
 **官方文档:** [development.md](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/development.md) · [architecture.md](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/architecture.md) · [cordis-primer](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cordis-primer.md) · [cordis-tutorial](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cordis-tutorial/index.md)(7 篇插件教程) · [cookbook](https://github.com/deepseek-ai/deepseek-harness/tree/master/docs/cookbook) · [capability-seams](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/capability-seams.md)
 

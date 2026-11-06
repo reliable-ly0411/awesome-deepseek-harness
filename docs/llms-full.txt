@@ -543,6 +543,17 @@ Syntax highlighting, copy button and monochrome mode for fenced code blocks in D
 Stars (README snapshot): 1
 
 
+### mengge237/dsh-composer-ease
+
+Repository: https://github.com/mengge237/dsh-composer-ease
+
+dsh-composer-ease: adds a completion popup to the DSH Web composer, plus bracket and quote pairing and wrap-on-selection; nothing else in the UI changes
+
+dsh-composer-ease：给 DSH Web 输入框加一个补全提示框，另带括号与引号配对、选中环绕；除此之外不改界面
+
+Stars (README snapshot): 0
+
+
 ## TUI & Desktop / TUI 与桌面端
 
 
@@ -657,6 +668,17 @@ Elephant-Goldfish Model for DSH: draft design specs with a context-rich Elephant
 面向 DSH 的 Elephant-Goldfish Model：由具备项目上下文的 Elephant 起草设计规范，再由全新上下文、只读权限的 Goldfish 审查设计。安装：`dsh plugin --profile web add dsh-egm`（npm：`dsh-egm`）。
 
 Stars (README snapshot): 6
+
+
+### leoan698-tom/dsh-sessivra
+
+Repository: https://github.com/leoan698-tom/dsh-sessivra
+
+Sessivra: drag DSH sessions into resizable split views, drop native @ references into drafts, and review delegated work before queued follow-ups. Prerelease; Windows / DSH 0.2.1-rc.5. Install: `dsh plugin --profile web add dsh-plugin-sessivra@0.3.0-dev.26`.
+
+Sessivra：拖拽 DSH 会话自由分屏、调宽，拖入输入框插入原生 @ 引用；收回子会话产物，验收后继续任务。预发布；Windows / DSH 0.2.1-rc.5。安装：`dsh plugin --profile web add dsh-plugin-sessivra@0.3.0-dev.26`。
+
+Stars (README snapshot): 1
 
 
 ### Q00/ouroboros
@@ -1396,6 +1418,17 @@ Pre-install judgement and post-mortem attribution: says which row admission deni
 Stars (README snapshot): 1
 
 
+### tommy00748-tech/dsh-native-notifications
+
+Repository: https://github.com/tommy00748-tech/dsh-native-notifications
+
+Native desktop notifications from DSH itself (approval, question, completion, error, sign-in), attributed to the DSH app with click-to-open, plus a selectable/customisable synthesised chime. Install: `dsh plugin --profile web add github:tommy00748-tech/dsh-native-notifications`
+
+由 DSH 自己弹出的原生桌面通知（待授权、等待作答、任务完成、出错、需要登录），归属 DSH 应用、点击回到会话，提示音可选预设或自定义。安装：`dsh plugin --profile web add github:tommy00748-tech/dsh-native-notifications`
+
+Stars (README snapshot): 0
+
+
 ## Skills / Skills 与技能包
 
 
@@ -1877,6 +1910,17 @@ Repository: https://dseek.app/cli
 Unofficial dsh cheat sheet: `npx @deepseek-ai/dsh web`, Node.js requirement, headless profile and plugin commands, sourced from the official repo and npm page (community)
 
 非官方 dsh 速查：`npx @deepseek-ai/dsh web`、Node.js 版本要求、headless profile 与插件命令，来源为官方仓库与 npm 页面(社区)
+
+Stars (README snapshot): unknown
+
+
+### DSH Learn
+
+Repository: https://dshlearn.com
+
+English learning site for dsh: getting-started guides, MCP setup, plugin installs, a community extensions directory, and release/news tracking, with sources cited (community)
+
+英文 dsh 学习站：入门指南、MCP 配置、插件安装、社区扩展目录，以及版本/新闻跟踪，内容标注来源(社区)
 
 Stars (README snapshot): unknown
 
