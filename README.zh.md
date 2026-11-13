@@ -80,6 +80,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [liustack/modsearch](https://github.com/liustack/modsearch) | DSH 的 web 插件:问网页或 X,拿回结构化 JSON 证据(搜索、抓取、引用) | 478 |
 | [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser) | Chrome 侧边栏扩展,让 DSH 直接操控浏览器——无需视觉能力 | 648 |
 | [taxueseek/argo](https://github.com/taxueseek/argo) | 为 agent 打造的搜索工具:中/英/学术/代码/购物/金融/新闻/百科 | 123 |
+| [CorsenAI/deepseek-harness-connector](https://github.com/CorsenAI/deepseek-harness-connector) | Chrome 扩展 + 本地 companion 插件：让一个精确的 DSH 会话只读取和操作你明确附加的 Chrome 标签页（在你自己已登录的配置文件里）——21 个浏览器动作，敏感字段在页面内先脱敏，仅走 127.0.0.1；通过 `dsh plugin --profile web add` 从 Release tarball 安装 | 0 |
 
 ### 🧠 记忆插件
 
@@ -124,7 +125,6 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | [VictorKozachek/dsh-user-code-block](https://github.com/VictorKozachek/dsh-user-code-block) | DSH 用户消息中的代码块：语法高亮、复制按钮与单色模式，`dsh plugin --profile desktop add dsh-user-code-block` 即装 | 1 |
 | [weibaohui/dsh-sidebar-tidy](https://github.com/weibaohui/dsh-sidebar-tidy) | 侧栏收纳：把「新会话」下方被各插件塞满的入口行——全局面板行、插件入口行（自家/第三方一律识别）、底部入口——统统收进一个菜单按钮，点开二级菜单原样触发各入口；想常驻的加名称白名单即可，侧栏折叠成窄轨时按钮自动变纯图标。`dsh plugin add @weibaohui/dsh-sidebar-tidy` 即装 | 0 |
 | [mengge237/dsh-composer-ease](https://github.com/mengge237/dsh-composer-ease) | dsh-composer-ease：给 DSH Web 输入框加一个补全提示框，另带括号与引号配对、选中环绕；除此之外不改界面 | 0 |
-
 | [dongsheng123132/dsh-move-up](https://github.com/dongsheng123132/dsh-move-up) | 工作区菜单里加一项「移到最上面」，经宿主 workspace 注册表只调整一次顺序——没有收藏、固定置顶或自动重排；通过 `dsh plugin --profile desktop add dsh-move-up@0.3.0` 安装 | 0 |
 
 ### 🖥️ TUI 与桌面端
