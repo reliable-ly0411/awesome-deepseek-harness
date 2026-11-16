@@ -23,7 +23,7 @@ English | [中文](README.zh.md)
 </p>
 
 > ⭐ **Found this list useful? Star it — it takes 2 seconds, and it happens to be the #1 way to help others discover dsh plugins.**
-> Save the list now so your next useful plugin is easier to find. Your ⭐ also supports the community maintaining this directory. Currently **43 → 100 stars is our first milestone (57 to go)**. To receive repository updates, choose your notification preferences in GitHub’s Watch menu.
+> Save the list now so your next useful plugin is easier to find. Your ⭐ also supports the community maintaining this directory. Currently **45 → 100 stars is our first milestone (55 to go)**. To receive repository updates, choose your notification preferences in GitHub’s Watch menu.
 >
 > **Share & spread:** if you built or love a plugin here, share its original repository so others can explore it. [Share on X](https://twitter.com/intent/tweet?text=Awesome%20DeepSeek%20Harness%20%E2%80%94%20Everything%20is%20a%20Plugin%20%E2%9A%A1%20Curated%20dsh%20plugins%2C%20tools%20%26%20skills%20for%20%40deepseek_ai%20harness&url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&hashtags=dsh,deepseek,opensource) · [Share on Reddit](https://www.reddit.com/submit?url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&title=Awesome%20DeepSeek%20Harness%20%E2%80%94%20curated%20plugins%20%26%20skills) · [Discuss on Discord](https://discord.gg/Ycq5dCaS4) · [Copy link](https://github.com/awesome-deepseekharness/awesome-deepseek-harness)
 >
@@ -146,6 +146,7 @@ The hottest category — giving text-only models "eyes."
 | Project | Description | ⭐ |
 | --- | --- | --- |
 | [dryw/dsh-egm](https://github.com/dryw/dsh-egm) | Elephant-Goldfish Model for DSH: draft design specs with a context-rich Elephant, then challenge them with fresh, read-only Goldfish reviewers. Install: `dsh plugin --profile web add dsh-egm` (npm: `dsh-egm`). | 6 |
+| [flymysql/dsh-remote](https://github.com/flymysql/dsh-remote) | SSH remote workspaces for DSH with parallel projects across hosts, file browsing and editing, recursive search, terminals, Git diffs, and Agent tools to edit, build and test remotely. Optional IDE layout. | 286 |
 | [leoan698-tom/dsh-sessivra](https://github.com/leoan698-tom/dsh-sessivra) | Sessivra: drag DSH sessions into resizable split views, drop native @ references into drafts, and review delegated work before queued follow-ups. Prerelease; Windows / DSH 0.2.1-rc.5. Install: `dsh plugin --profile web add dsh-plugin-sessivra@0.3.0-dev.26`. | 1 |
 | [Q00/ouroboros](https://github.com/Q00/ouroboros/tree/main/integrations/dsh-plugin) | Config-only bundle mounting Ouroboros via MCP: 36 interview/Seed/execution/eval/evolution workflow tools | 5839 |
 | [xmanrui/dsh-im](https://github.com/xmanrui/dsh-im) | 9-channel IM bots for DSH via QR/credentials: Feishu, WeChat, DingTalk, WeCom, QQ, Slack, Telegram, Discord, WhatsApp | 1307 |

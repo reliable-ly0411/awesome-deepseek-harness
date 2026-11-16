@@ -23,7 +23,7 @@
 </p>
 
 > ⭐ **这个列表帮你省了 1 小时找插件？点个 Star 吧 — 2 秒钟，却是对所有插件作者最大的支持。**
-> 先收藏，下次少找一次。你的 ⭐ 也是社区持续整理这份目录的动力。目前 **43 → 100 颗星是第一里程碑（还差 57）**。想接收仓库动态，请在 GitHub 的 Watch 菜单中选择通知类型。
+> 先收藏，下次少找一次。你的 ⭐ 也是社区持续整理这份目录的动力。目前 **45 → 100 颗星是第一里程碑（还差 55）**。想接收仓库动态，请在 GitHub 的 Watch 菜单中选择通知类型。
 >
 > **把好项目分享出去：** 你做/喜欢的插件在列表里？分享原始仓库，让更多人有机会发现它。[一键分享到 X](https://twitter.com/intent/tweet?text=Awesome%20DeepSeek%20Harness%20%E2%80%94%20%E4%B8%87%E7%89%A9%E7%9A%86%E5%8F%AF%E6%8F%92%E4%BB%B6%20%E2%9A%A1%20%E7%B2%BE%E9%80%89%20dsh%20%E6%8F%92%E4%BB%B6%E3%80%81%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E8%83%BD&url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&hashtags=dsh,deepseek) · [分享到 Reddit](https://www.reddit.com/submit?url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&title=Awesome%20DeepSeek%20Harness%20%E2%80%94%20%E4%B8%87%E7%89%A9%E7%9A%86%E5%8F%AF%E6%8F%92%E4%BB%B6%E7%B2%BE%E9%80%89) · [去 Discord 讨论](https://discord.gg/Ycq5dCaS4) · [复制链接](https://github.com/awesome-deepseekharness/awesome-deepseek-harness)
 >
@@ -146,6 +146,7 @@ DeepSeek Harness 是 DeepSeek AI 开源的 agent harness。它的核心哲学是
 | 项目 | 说明 | ⭐ |
 | --- | --- | --- |
 | [dryw/dsh-egm](https://github.com/dryw/dsh-egm) | 面向 DSH 的 Elephant-Goldfish Model：由具备项目上下文的 Elephant 起草设计规范，再由全新上下文、只读权限的 Goldfish 审查设计。安装：`dsh plugin --profile web add dsh-egm`（npm：`dsh-egm`）。 | 6 |
+| [flymysql/dsh-remote](https://github.com/flymysql/dsh-remote) | DSH 的 SSH 远程工作区：多主机项目并行、文件浏览与编辑、递归搜索、终端、Git 差异，以及 Agent 远程编辑、构建与测试；可选 IDE 布局。 | 286 |
 | [leoan698-tom/dsh-sessivra](https://github.com/leoan698-tom/dsh-sessivra) | Sessivra：拖拽 DSH 会话自由分屏、调宽，拖入输入框插入原生 @ 引用；收回子会话产物，验收后继续任务。预发布；Windows / DSH 0.2.1-rc.5。安装：`dsh plugin --profile web add dsh-plugin-sessivra@0.3.0-dev.26`。 | 1 |
 | [Q00/ouroboros](https://github.com/Q00/ouroboros/tree/main/integrations/dsh-plugin) | 纯配置包，经 MCP 挂载 Ouroboros，提供 36 个访谈/Seed/执行/评估/演化工作流工具 | 5839 |
 | [xmanrui/dsh-im](https://github.com/xmanrui/dsh-im) | 9 渠道 IM 接入：飞书/微信/钉钉/企微/QQ/Slack/TG/Discord/WhatsApp，扫码或凭据接入 | 1307 |
