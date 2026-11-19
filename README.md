@@ -216,6 +216,7 @@ The hottest category — giving text-only models "eyes."
 | [lengrufeng2008/dsh-code-intel](https://github.com/lengrufeng2008/dsh-code-intel) | Read-only semantic code navigation for DSH via local language servers: definition, references, workspace symbols, diagnostics, hover, rename preview; six native tools, no embeddings/hosted index, 6/6 tests | 0 |
 | [jjjjjjjjnnjnn/dsh-triage](https://github.com/jjjjjjjjnnjnn/dsh-triage) | Pre-install judgement and post-mortem attribution: says which row admission denied, which module failed to import, which capability was declared but never registered; isolated probe with recorded evidence. Read-only, no install/remove, no security claims | 1 |
 | [tommy00748-tech/dsh-native-notifications](https://github.com/tommy00748-tech/dsh-native-notifications) | Native desktop notifications from DSH itself (approval, question, completion, error, sign-in), attributed to the DSH app with click-to-open, plus a selectable/customisable synthesised chime. Install: `dsh plugin --profile web add github:tommy00748-tech/dsh-native-notifications` | 0 |
+| [wychmod/dsh-mini-superagent](https://github.com/wychmod/dsh-mini-superagent) | Dispatch tasks from the main session to independent background sub-sessions that return immediately and report back automatically; a sidebar workbench shows concurrency, queueing, batch progress and failure reasons, with cancel, retry and archive. 10 `dispatch_*` tools, zero runtime dependencies, pure ESM. Install: `dsh plugin --profile web add dsh-mini-superagent` (npm: `dsh-mini-superagent`). | 1 |
 
 ### 📚 Skills
 
@@ -238,6 +239,7 @@ The hottest category — giving text-only models "eyes."
 | [morluto/rea](https://github.com/morluto/rea) | Reverse engineer anything with agents, from app behavior down to native binaries | 404 |
 | [reliable-ly0411/babeldoc-pdf-translate](https://github.com/reliable-ly0411/babeldoc-pdf-translate) | BabelDOC PDF translation skill for DSH, also packaged as a Codex plugin: bilingual output, custom glossaries and local typesetting; install under `.dsh/skills/babeldoc-pdf-translate` | 0 |
 | [zabuxie/vc-voice-train-skill](https://github.com/zabuxie/vc-voice-train-skill) | RVC voice training skill for DSH: dataset QA, fix for the RVC 20240604 audio_norm defect (silent broadband-noise output), objective acceptance (flat/harmonics/band energy), 40k/32k pipelines, cloud-GPU SOP | 10 |
+| [kysr04/dsh-pitfall-memory](https://github.com/kysr04/dsh-pitfall-memory) | Mistake ledger skill for DSH: a repeat failure becomes a Markdown entry whose key field is the detection signal — how to recognise the same wall in three seconds — plus the command that gets you off it; entries are retrieved before similar tasks. Install under `.dsh/skills/dsh-pitfall-memory` | 0 |
 
 ### 🚀 Apps & Runtimes Built on DSH
 
