@@ -9,8 +9,8 @@
     "zh-CN"
   ],
   "sourceUpdated": {
-    "en": "2026-11-18",
-    "zh": "2026-11-18"
+    "en": "2026-11-20",
+    "zh": "2026-11-20"
   },
   "sources": {
     "en": "https://github.com/awesome-deepseekharness/awesome-deepseek-harness/blob/main/README.md",
@@ -19,7 +19,7 @@
   "starCountNote": "Project star counts are README snapshots, not live counts. Verify installation and compatibility in the linked upstream repository.",
   "repositoryStars": 45,
   "firstStarGoal": 100,
-  "total": 176,
+  "total": 180,
   "groups": [
     {
       "id": "MKT",
@@ -403,48 +403,48 @@
           "url": "https://github.com/weibaohui/dsh-gaokao",
           "desc": "Gaokao countdown blackboard: desktop widget counting down days (double-click to collapse into a slim bar) plus random knowledge-card quizzes while the agent works; installable via `dsh plugin add @weibaohui/dsh-gaokao`",
           "stars": 2,
-          "zhName": "Moonshile/moonshile-dsh-plugins",
-          "zhDesc": "侧边栏工作区每日按最近活动排序一次，当天顺序稳定"
+          "zhName": "weibaohui/dsh-gaokao",
+          "zhDesc": "梦回高三：桌面小黑板高考倒计时（双击收成竖条），AI 干活时随机抽背知识点卡；`dsh plugin add @weibaohui/dsh-gaokao` 即装"
         },
         {
           "name": "weibaohui/dsh-fireworks",
           "url": "https://github.com/weibaohui/dsh-fireworks",
           "desc": "Fireworks celebration engine: event-driven shows above the chat window while the agent codes (welcome / per-turn / tool sparks / milestone / finale / failure dud), token usage decides size & splendour; installable via `dsh plugin add @weibaohui/dsh-fireworks`",
           "stars": 0,
-          "zhName": "weibaohui/dsh-gaokao",
-          "zhDesc": "梦回高三：桌面小黑板高考倒计时（双击收成竖条），AI 干活时随机抽背知识点卡；`dsh plugin add @weibaohui/dsh-gaokao` 即装"
+          "zhName": "weibaohui/dsh-fireworks",
+          "zhDesc": "烟花庆祝引擎：agent 编程时在对话窗口上空放烟花（开场/回合/工具/里程碑/收工/失败各成卡组），token 用量决定大小与绚烂程度；`dsh plugin add @weibaohui/dsh-fireworks` 即装"
         },
         {
           "name": "Moonshile/moonshile-dsh-plugins",
           "url": "https://github.com/Moonshile/moonshile-dsh-plugins",
           "desc": "Re-sorts sidebar workspaces by last activity once per day; stable order within the day",
           "stars": 2,
-          "zhName": "weibaohui/dsh-fireworks",
-          "zhDesc": "烟花庆祝引擎：agent 编程时在对话窗口上空放烟花（开场/回合/工具/里程碑/收工/失败各成卡组），token 用量决定大小与绚烂程度；`dsh plugin add @weibaohui/dsh-fireworks` 即装"
+          "zhName": "Moonshile/moonshile-dsh-plugins",
+          "zhDesc": "侧边栏工作区每日按最近活动排序一次，当天顺序稳定"
         },
         {
           "name": "weibaohui/dsh-sidebar-tidy",
           "url": "https://github.com/weibaohui/dsh-sidebar-tidy",
           "desc": "Sidebar tidy: when plugins pile up, the rows under 'New session' get crowded with panel and plugin entries. This plugin folds them all — global panel rows, plugin-injected entry rows (own and third-party alike), and bottom entries — into a single menu button whose secondary menu triggers each entry exactly as before; keep any entry permanently visible with a name whitelist, and the button turns into an icon when the sidebar collapses to a narrow rail. Installable via `dsh plugin add @weibaohui/dsh-sidebar-tidy`",
           "stars": 0,
-          "zhName": "12we21/cute-fat-fish-pet",
-          "zhDesc": "DSH Web UI 的 Q 版蓝发小女仆桌宠：106 个手绘透明动画、桌面漫步、本地 Ollama 或 DSH 在线模型陪聊，可选看屏幕吐槽（`dsh plugin add github:12we21/cute-fat-fish-pet#path:/src` 即装）"
+          "zhName": "weibaohui/dsh-sidebar-tidy",
+          "zhDesc": "侧栏收纳：把「新会话」下方被各插件塞满的入口行——全局面板行、插件入口行（自家/第三方一律识别）、底部入口——统统收进一个菜单按钮，点开二级菜单原样触发各入口；想常驻的加名称白名单即可，侧栏折叠成窄轨时按钮自动变纯图标。`dsh plugin add @weibaohui/dsh-sidebar-tidy` 即装"
         },
         {
           "name": "12we21/cute-fat-fish-pet",
           "url": "https://github.com/12we21/cute-fat-fish-pet",
           "desc": "A chibi blue-haired maid desktop pet for the DSH Web UI with 106 hand-drawn transparent animations, desktop wandering, chat through local Ollama or the DSH online models, and optional screen watching (installable via `dsh plugin add github:12we21/cute-fat-fish-pet#path:/src`)",
           "stars": 1,
-          "zhName": "VictorKozachek/dsh-user-code-block",
-          "zhDesc": "DSH 用户消息中的代码块：语法高亮、复制按钮与单色模式，`dsh plugin --profile desktop add dsh-user-code-block` 即装"
+          "zhName": "12we21/cute-fat-fish-pet",
+          "zhDesc": "DSH Web UI 的 Q 版蓝发小女仆桌宠：106 个手绘透明动画、桌面漫步、本地 Ollama 或 DSH 在线模型陪聊，可选看屏幕吐槽（`dsh plugin add github:12we21/cute-fat-fish-pet#path:/src` 即装）"
         },
         {
           "name": "VictorKozachek/dsh-user-code-block",
           "url": "https://github.com/VictorKozachek/dsh-user-code-block",
           "desc": "Syntax highlighting, copy button and monochrome mode for fenced code blocks in DSH user messages — the chat renders them as plain text by default; installable via `dsh plugin --profile desktop add dsh-user-code-block`",
           "stars": 1,
-          "zhName": "weibaohui/dsh-sidebar-tidy",
-          "zhDesc": "侧栏收纳：把「新会话」下方被各插件塞满的入口行——全局面板行、插件入口行（自家/第三方一律识别）、底部入口——统统收进一个菜单按钮，点开二级菜单原样触发各入口；想常驻的加名称白名单即可，侧栏折叠成窄轨时按钮自动变纯图标。`dsh plugin add @weibaohui/dsh-sidebar-tidy` 即装"
+          "zhName": "VictorKozachek/dsh-user-code-block",
+          "zhDesc": "DSH 用户消息中的代码块：语法高亮、复制按钮与单色模式，`dsh plugin --profile desktop add dsh-user-code-block` 即装"
         },
         {
           "name": "mengge237/dsh-composer-ease",
@@ -461,9 +461,17 @@
           "stars": 0,
           "zhName": "dongsheng123132/dsh-move-up",
           "zhDesc": "工作区菜单里加一项「移到最上面」，经宿主 workspace 注册表只调整一次顺序——没有收藏、固定置顶或自动重排；通过 `dsh plugin --profile desktop add dsh-move-up@0.3.0` 安装"
+        },
+        {
+          "name": "kadaliao/dsh-atlas",
+          "url": "https://github.com/kadaliao/dsh-atlas",
+          "desc": "Your macOS Photos library on a night globe that zooms to street level: glowing footprints, trips drawn as flight arcs you can replay as a story, on this day in your photos, and a model that can search your photos and move the map. Read-only. Install: `dsh plugin --profile web add @kadaliao/dsh-atlas`.",
+          "stars": 0,
+          "zhName": "kadaliao/dsh-atlas",
+          "zhDesc": "把 macOS「照片」图库放到一颗能放大到街道的夜色地球上：拍过照的地方发光，旅行画成航线、可以用故事模式回放，每天翻出往年今天的照片；模型能搜你的照片、移动地图。只读。安装：`dsh plugin --profile web add @kadaliao/dsh-atlas`。"
         }
       ],
-      "count": 20,
+      "count": 21,
       "prefix": "U5"
     },
     {
@@ -1127,9 +1135,25 @@
           "stars": 1,
           "zhName": "wychmod/dsh-mini-superagent",
           "zhDesc": "主会话把任务派给独立的后台子会话执行，立即返回、报告自动回流；侧边栏「派发工作台」看并发、排队、批次进度与失败原因，可取消、重试、归档。提供 10 个 `dispatch_*` 工具，零运行时依赖，纯 ESM。安装：`dsh plugin --profile web add dsh-mini-superagent`（npm：`dsh-mini-superagent`）。"
+        },
+        {
+          "name": "kadaliao/dsh-bots",
+          "url": "https://github.com/kadaliao/dsh-bots",
+          "desc": "Grok-style bot teams: hire a ready-made team (one-person company, software squad, content studio, research desk) where each bot has its own persona, model, skills, memory and scheduled tasks; a dispatcher hands the work out as tasks, a board tracks every request, and you can message the team from Feishu/Lark, Telegram, Slack or Discord. Install: `dsh plugin --profile web add @kadaliao/dsh-bots`.",
+          "stars": 10,
+          "zhName": "kadaliao/dsh-bots",
+          "zhDesc": "Grok 式 bot 团队：一键雇用现成团队（一人公司、研发小队、内容工作室、研究台），每个 bot 有自己的人设、模型、技能、记忆和定时任务；调度员把工作派成任务，看板跟踪每件事，还能在飞书、Telegram、Slack、Discord 里给团队派活。安装：`dsh plugin --profile web add @kadaliao/dsh-bots`。"
+        },
+        {
+          "name": "kadaliao/dsh-images",
+          "url": "https://github.com/kadaliao/dsh-images",
+          "desc": "A `generate_image` tool backed by your provider's image model: pictures show in the conversation, an Images panel collects them as a gallery, every picture shows what it cost, and it can edit from reference images or assemble looping GIFs. Install: `dsh plugin --profile web add @kadaliao/dsh-images`.",
+          "stars": 0,
+          "zhName": "kadaliao/dsh-images",
+          "zhDesc": "给模型一个 `generate_image` 工具，用你供应商的生图模型出图：图直接显示在对话里，「图片」面板收成图库，每张图标出费用，支持参考图改图和循环 GIF 动图。安装：`dsh plugin --profile web add @kadaliao/dsh-images`。"
         }
       ],
-      "count": 72,
+      "count": 74,
       "prefix": "U7"
     },
     {
@@ -1523,9 +1547,17 @@
           "stars": null,
           "zhName": "DSH Learn",
           "zhDesc": "英文 dsh 学习站：入门指南、MCP 配置、插件安装、社区扩展目录，以及版本/新闻跟踪，内容标注来源(社区)"
+        },
+        {
+          "name": "DeepSeekDSH",
+          "url": "https://deepseekdsh.com/",
+          "desc": "dsh community learning site: install and troubleshooting tutorials, plugin and MCP guides, provider configuration and release tracking, bilingual EN/中文 (community)",
+          "stars": null,
+          "zhName": "DeepSeekDSH",
+          "zhDesc": "dsh 社区学习站：安装与排错教程、插件与 MCP 指南、供应商配置与版本跟踪，中英双语（社区）"
         }
       ],
-      "count": 9,
+      "count": 10,
       "prefix": "U11"
     }
   ]
