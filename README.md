@@ -23,7 +23,7 @@ English | [中文](README.zh.md)
 </p>
 
 > ⭐ **Found this list useful? Star it — it takes 2 seconds, and it happens to be the #1 way to help others discover dsh plugins.**
-> Save the list now so your next useful plugin is easier to find. Your ⭐ also supports the community maintaining this directory. Currently **45 → 100 stars is our first milestone (55 to go)**. To receive repository updates, choose your notification preferences in GitHub’s Watch menu.
+> Save the list now so your next useful plugin is easier to find. Your ⭐ also supports the community maintaining this directory. Currently **46 → 100 stars is our first milestone (54 to go)**. To receive repository updates, choose your notification preferences in GitHub’s Watch menu.
 >
 > **Share & spread:** if you built or love a plugin here, share its original repository so others can explore it. [Share on X](https://twitter.com/intent/tweet?text=Awesome%20DeepSeek%20Harness%20%E2%80%94%20Everything%20is%20a%20Plugin%20%E2%9A%A1%20Curated%20dsh%20plugins%2C%20tools%20%26%20skills%20for%20%40deepseek_ai%20harness&url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&hashtags=dsh,deepseek,opensource) · [Share on Reddit](https://www.reddit.com/submit?url=https://github.com/awesome-deepseekharness/awesome-deepseek-harness&title=Awesome%20DeepSeek%20Harness%20%E2%80%94%20curated%20plugins%20%26%20skills) · [Discuss on Discord](https://discord.gg/Ycq5dCaS4) · [Copy link](https://github.com/awesome-deepseekharness/awesome-deepseek-harness)
 >
@@ -127,6 +127,7 @@ The hottest category — giving text-only models "eyes."
 | [mengge237/dsh-composer-ease](https://github.com/mengge237/dsh-composer-ease) | dsh-composer-ease: adds a completion popup to the DSH Web composer, plus bracket and quote pairing and wrap-on-selection; nothing else in the UI changes | 0 |
 | [dongsheng123132/dsh-move-up](https://github.com/dongsheng123132/dsh-move-up) | One item in the workspace menu that moves a workspace to the top of the sidebar once, through the host workspace registry — no favorites, pins or automatic re-sorting; installable via `dsh plugin --profile desktop add dsh-move-up@0.3.0` | 0 |
 | [kadaliao/dsh-atlas](https://github.com/kadaliao/dsh-atlas) | Your macOS Photos library on a night globe that zooms to street level: glowing footprints, trips drawn as flight arcs you can replay as a story, on this day in your photos, and a model that can search your photos and move the map. Read-only. Install: `dsh plugin --profile web add @kadaliao/dsh-atlas`. | 0 |
+| [ppy-web/dsh-audio-reactive](https://github.com/ppy-web/dsh-audio-reactive) | Audio-reactive visual background theme powered by audioMotion-analyzer for DSH Web & Desktop (streaming TTS, music panel, dictation, microphone, browser audio sharing & Windows loopback), with 17 presets and idle immersive overlay; installable via dsh plugin add dsh-audio-reactive | 0 |
 
 ### 🖥️ TUI & Desktop
 
